@@ -86,6 +86,7 @@ def checkSentence(doc, sentence, index, df, nlp) -> bool:
     return 'uncertain'
 
 def main():
-    df = pd.read_csv('plot.csv')
+    df = pd.read_csv('nyolcadik.csv')
+    df.sum()
 
     

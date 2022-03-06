@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from spacy.util import minibatch, compounding
 
+
 def checkSimpleSentence(sentence, nlp) -> bool:
     hasFewVerbs = False
     isUpperCaseOnly = False
@@ -38,6 +39,7 @@ def checkSimpleSentence(sentence, nlp) -> bool:
 
     return 'uncertain'
 
+
 def checkSentence(doc, sentence, index, df, nlp) -> bool:
     hasFewVerbs = False
     isUpperCaseOnly = False
@@ -69,10 +71,10 @@ def checkSentence(doc, sentence, index, df, nlp) -> bool:
     if index != 0 or len(df) is not index - 1:
         if checkSimpleSentence(df['line'].iloc[index-1], nlp) is 'p':
             isParagraphBefore = True
-        
-        if checkSimpleSentence(df['line'].iloc[index+1], nlp)  is 'p':
+
+        if checkSimpleSentence(df['line'].iloc[index+1], nlp) is 'p':
             isParagraphAfter = True
-        
+
     if len(sentence) < 50 and len(sentence) > 1:
         isShort = 1
 
@@ -84,6 +86,7 @@ def checkSentence(doc, sentence, index, df, nlp) -> bool:
         return 'title'
 
     return 'uncertain'
+
 
 def main():
     df = pd.read_csv('elso.csv')
@@ -106,7 +109,7 @@ def main():
 
     nlp = spacy.load("en_core_web_sm")
 
-    # d = [df['line'].iloc[380],df['line'].iloc[103]] 
+    # d = [df['line'].iloc[380],df['line'].iloc[103]]
 
     # for x in d:
     #     doc = nlp(x)
@@ -120,22 +123,24 @@ def main():
 
     # training_data.to_csv('train2.csv', index = False)
     training_data = pd.read_csv('train2.csv')
-    training_data = training_data.drop(training_data[(training_data['pred'] == "uncertain")].index)
+    training_data = training_data.drop(
+        training_data[(training_data['pred'] == "uncertain")].index)
     train = []
     training_data = training_data.replace(np.nan, '', regex=True)
     for index, row in training_data.iterrows():
         value = False
         if row['pred'] == "title":
             value = True
-        cat = { "cats": { 'POSITIVE': value}}
+        cat = {"cats": {'POSITIVE': value}}
         train.append(tuple([row['line'], cat]))
 
     # textcat=nlp.create_pipe( "textcat", config={"exclusive_classes": True, "architecture": "simple_cnn"})
     # nlp.add_pipe(text_cat, last=True)
 
     if 'textcat' not in nlp.pipe_names:
-        textcat = nlp.create_pipe("textcat", config={"exclusive_classes": False, "architecture": "simple_cnn"})
-        nlp.add_pipe(textcat, last=True) 
+        textcat = nlp.create_pipe(
+            "textcat", config={"exclusive_classes": True, "architecture": "simple_cnn"})
+        nlp.add_pipe(textcat, last=True)
     else:
         textcat = nlp.get_pipe("textcat")
 
@@ -151,11 +156,11 @@ def main():
         print("Training model...")
         for i in range(n_iter):
             losses = {}
-            batches = minibatch(train, size=compounding(4,32,1.001))
+            batches = minibatch(train, size=compounding(4, 32, 1.001))
             for batch in batches:
                 texts, annotations = zip(*batch)
                 nlp.update(texts, annotations, sgd=optimizer,
-                        drop=0.2, losses=losses)
+                           drop=0.2, losses=losses)
 
     # test
 
@@ -182,8 +187,7 @@ def main():
     #     if itn % 20 == 0:
     #         print(losses)
 
-    test_data.to_csv('kesz2.csv', index = False)
-
+    test_data.to_csv('kesz2.csv', index=False)
 
     #     print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
     #             token.shape_, token.is_alpha, token.is_stop)

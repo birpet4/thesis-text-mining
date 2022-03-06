@@ -16,9 +16,9 @@ def checkSimpleSentence(sentence, nlp) -> bool:
     doc = nlp(sentence)
     verbs = 0
     for token in doc:
-        if token.pos_ is 'VERB':
+        if token.pos_ == 'VERB':
             verbs += 1
-        if token.pos_ is not 'NUM':
+        if token.pos_ != 'NUM':
             onlyNumber = False
 
     #     # print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
@@ -51,9 +51,9 @@ def checkSentence(doc, sentence, index, df, nlp) -> bool:
 
     verbs = 0
     for token in doc:
-        if token.pos_ is 'VERB':
+        if token.pos_ == 'VERB':
             verbs += 1
-        if token.pos_ is not 'NUM':
+        if token.pos_ != 'NUM':
             onlyNumber = False
 
     #     # print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
@@ -68,11 +68,11 @@ def checkSentence(doc, sentence, index, df, nlp) -> bool:
     else:
         return 'td'
 
-    if index != 0 or len(df) is not index - 1:
-        if checkSimpleSentence(df['line'].iloc[index-1], nlp) is 'p':
+    if index != 0 or len(df) != index - 1:
+        if checkSimpleSentence(df['line'].iloc[index-1], nlp) == 'p':
             isParagraphBefore = True
 
-        if checkSimpleSentence(df['line'].iloc[index+1], nlp) is 'p':
+        if checkSimpleSentence(df['line'].iloc[index+1], nlp)  == 'p':
             isParagraphAfter = True
 
     if len(sentence) < 50 and len(sentence) > 1:

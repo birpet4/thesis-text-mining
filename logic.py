@@ -5,6 +5,8 @@ import numpy as np
 from spacy.util import minibatch, compounding
 import json
 import random
+from pandas import DataFrame
+
 
 def check_for_if_statements(file):
     if_paragraphs = []
@@ -19,6 +21,7 @@ def check_for_if_statements(file):
 
     return if_paragraphs
 
+
 def check_for_noif_statements(file):
     paragraphs = []
     Lines = file.readlines()
@@ -31,6 +34,7 @@ def check_for_noif_statements(file):
                 break
 
     return paragraphs
+
 
 def create_data():
     contracts = ""
@@ -70,6 +74,7 @@ def create_data():
         for line in if_paragraphs:
             the_file.write(line)
 
+
 def main():
     nlp = spacy.load("en_core_web_sm")
     train = []
@@ -79,48 +84,89 @@ def main():
 
         for line in Lines:
             value = False
-            cat = { "cats": { 'POSITIVE': value}}
-            train.append(tuple([line, cat]))
+            cat = {"cats": {'POSITIVE': value}}
+            # train.append(tuple([line, cat]))
+            train.append([line, cat])
 
             doc = nlp(line)
-            for token in doc:
-                print(token.text, token.dep_, token.head.text, token.head.pos_,
-                        [child for child in token.children])
+            with open('fold/postags.txt', 'w', encoding='utf-8') as fileTag:
+                Lines = file.readlines()
+
+                for line in Lines:
+                    doc = nlp(line)
+
+                    for token in doc:
+                        print(token.text, token.dep_, token.head.text, token.head.pos_, [
+                              child for child in token.children])
+                        fileTag.write(token.text + "," + token.dep_ + ",")
 
     with open('fold/if_statements.txt', 'r', encoding='utf-8') as file:
         Lines = file.readlines()
         for line in Lines:
             value = True
-            cat = { "cats": { 'POSITIVE': value}}
-            train.append(tuple([line, cat]))
+            cat = {"cats": {'POSITIVE': value}}
+            # train.append(tuple([line, cat]))
+            train.append([line, cat])
+
             doc = nlp(line)
-            for token in doc:
-                print(token.text, token.dep_, token.head.text, token.head.pos_,
-                        [child for child in token.children])
-    
+
+            # for token in doc:
+            # print(token.text, token.dep_, token.head.text, token.head.pos_,
+            #      [child for child in token.children])
+
     if 'textcat' not in nlp.pipe_names:
-        textcat = nlp.create_pipe("textcat", config={"exclusive_classes": False, "architecture": "simple_cnn"})
-        nlp.add_pipe(textcat, last=True) 
+        textcat = nlp.create_pipe('textcat')
+        # textcat = nlp.create_pipe(
+        #     "textcat", config={"exclusive_classes": True, "architecture": "ensemble"})
+        nlp.add_pipe(textcat, last=True)
     else:
         textcat = nlp.get_pipe("textcat")
 
     textcat.add_label('POSITIVE')
-    textcat.add_label("OTHER")
+    # textcat.add_label("OTHER")
     other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'textcat']
 
     n_iter = 1
     random.shuffle(train)
     # Only train the textcat pipe
-    with nlp.disable_pipes(*other_pipes):
+    # with nlp.disable_pipes(*other_pipes):
+    #     optimizer = nlp.begin_training()
+    #     print("Training model...")
+    #     for i in range(n_iter):
+    #         losses = {}
+    #         batches = minibatch(train, size=compounding(4, 32, 1.001))
+    #         for batch in batches:
+    #             texts, annotations = zip(*batch)
+    #             nlp.update(texts, annotations, sgd=optimizer,
+    #                        drop=0.2, losses=losses)
+
+    # Only train the textcat pipe
+    # with nlp.disable_pipes(*other_pipes):
+    #     optimizer = nlp.begin_training()
+    #     print("Training model...")
+    #     for i in range(n_iter):
+    #         losses = {}
+    #         batches = minibatch(train, size=compounding(4, 32, 1.001))
+    #         for batch in batches:
+    #             texts, annotations = zip(*batch)
+    #             texts = [nlp(text) for text, entities in batch]
+    #             annotations = [{"cats": entities} for text, entities in batch]
+    #             nlp.update(texts, annotations, sgd=optimizer,
+    #                        drop=0.2, losses=losses)
+
+    other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'textcat']
+    with nlp.disable_pipes(*other_pipes):  # only train textcat
         optimizer = nlp.begin_training()
-        print("Training model...")
+        print("Training the model...")
+        print('{:^5}\t{:^5}\t{:^5}\t{:^5}'.format('LOSS', 'P', 'R', 'F'))
         for i in range(n_iter):
             losses = {}
-            batches = minibatch(train, size=compounding(4,32,1.001))
+            # batch up the examples using spaCy's minibatch
+            batches = minibatch(train, size=compounding(4., 32., 1.001))
             for batch in batches:
                 texts, annotations = zip(*batch)
-                nlp.update(texts, annotations, sgd=optimizer,
-                        drop=0.2, losses=losses)
+                nlp.update(texts, annotations, sgd=optimizer, drop=0.2,
+                           losses=losses)
 
     test_data = pd.read_csv("fold/if_else.csv", sep=";", encoding='cp1252')
     for index, row in test_data.iterrows():
@@ -132,19 +178,20 @@ def main():
         else:
             test_data.loc[index, 'pred'] = 0
 
-
+    test_data.to_csv('fold/result_1.csv', index=False)
     print(test_data.head())
-    test_data.to_csv('fold/result_1.csv', index = False)
-    
-    with open('fold/if_test.txt', 'r', encoding='utf-8') as file:
-        Lines = file.readlines()
-        random.shuffle(Lines)
 
-        with open('fold/res.txt', 'a', encoding='utf-8') as the_file:
-            for line in Lines:
-                doc = nlp(line)
+    # with open('fold/if_test.txt', 'r', encoding='utf-8') as file:
+    #     Lines = file.readlines()
+    #     random.shuffle(Lines)
 
-                the_file.write(line + "," + "Poz:" + str(doc.cats["POSITIVE"]) + "," + str(doc.cats["OTHER"]))
+    #     with open('fold/res.txt', 'a', encoding='utf-8') as the_file:
+    #         for line in Lines:
+    #             doc = nlp(line)
+
+    #             the_file.write(
+    #                 line + "," + "Poz:" + str(doc.cats["POSITIVE"]) + ",")
+
 
 if __name__ == "__main__":
     main()

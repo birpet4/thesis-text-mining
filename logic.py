@@ -6,7 +6,8 @@ from spacy.util import minibatch, compounding
 import json
 import random
 from pandas import DataFrame
-
+import sklearn.metrics as metrics
+import matplotlib.pyplot as plt
 
 def check_for_if_statements(file):
     if_paragraphs = []
@@ -74,106 +75,122 @@ def create_data():
         for line in if_paragraphs:
             the_file.write(line)
 
+def roc_auc_curve(data):
+    fpr, tpr, threshold = metrics.roc_curve(data['val'], data['pred'])
+    roc_auc = metrics.auc(fpr, tpr)
 
-def main():
-    nlp = spacy.load("en_core_web_sm")
+    plt.title('Receiver Operating Characteristic')
+    plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
+    plt.legend(loc = 'lower right')
+    plt.plot([0, 1], [0, 1],'r--')
+    plt.xlim([0, 1])
+    plt.ylim([0, 1])
+    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate')
+    # plt.show()
+    plt.savefig("mygraph.png")
+
+def create_training_dataset():
     train = []
-
     with open('fold/noif_statement2s.txt', 'r', encoding='utf-8') as file:
         Lines = file.readlines()
 
         for line in Lines:
             value = False
-            cat = {"cats": {'POSITIVE': value}}
-            # train.append(tuple([line, cat]))
-            train.append([line, cat])
-
-            doc = nlp(line)
-            with open('fold/postags.txt', 'w', encoding='utf-8') as fileTag:
-                Lines = file.readlines()
-
-                for line in Lines:
-                    doc = nlp(line)
-
-                    for token in doc:
-                        print(token.text, token.dep_, token.head.text, token.head.pos_, [
-                              child for child in token.children])
-                        fileTag.write(token.text + "," + token.dep_ + ",")
+            cat = {"cats": {'Conditional': value, 'NoConditional': not value}}
+            train.append(tuple([line, cat]))
 
     with open('fold/if_statements.txt', 'r', encoding='utf-8') as file:
         Lines = file.readlines()
         for line in Lines:
             value = True
-            cat = {"cats": {'POSITIVE': value}}
-            # train.append(tuple([line, cat]))
-            train.append([line, cat])
+            cat = {"cats": {'Conditional': value, 'NoConditional': not value}}
+            train.append(tuple([line, cat]))
+    
+    return train
 
-            doc = nlp(line)
+def evaluate(tokenizer, textcat, texts, cats):
+    docs = (tokenizer(text) for text in texts)
+    tp = 0.0  # True positives
+    fp = 1e-8  # False positives
+    fn = 1e-8  # False negatives
+    tn = 0.0  # True negatives
+    for i, doc in enumerate(textcat.pipe(docs)):
+        gold = cats[i]
+        for label, score in doc.cats.items():
+            if label not in gold:
+                continue
+            if label == "NEGATIVE":
+                continue
+            if score >= 0.5 and gold[label] >= 0.5:
+                tp += 1.0
+            elif score >= 0.5 and gold[label] < 0.5:
+                fp += 1.0
+            elif score < 0.5 and gold[label] < 0.5:
+                tn += 1
+            elif score < 0.5 and gold[label] >= 0.5:
+                fn += 1
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    if (precision + recall) == 0:
+        f_score = 0.0
+    else:
+        f_score = 2 * (precision * recall) / (precision + recall)
+    return {"textcat_p": precision, "textcat_r": recall, "textcat_f": f_score}
 
-            # for token in doc:
-            # print(token.text, token.dep_, token.head.text, token.head.pos_,
-            #      [child for child in token.children])
+def main():
+    nlp = spacy.load("en_core_web_sm")
 
     if 'textcat' not in nlp.pipe_names:
-        textcat = nlp.create_pipe('textcat')
-        # textcat = nlp.create_pipe(
-        #     "textcat", config={"exclusive_classes": True, "architecture": "ensemble"})
+        textcat = nlp.create_pipe("textcat", config={"exclusive_classes": True, "architecture": "simple_cnn"})
         nlp.add_pipe(textcat, last=True)
     else:
         textcat = nlp.get_pipe("textcat")
 
-    textcat.add_label('POSITIVE')
-    # textcat.add_label("OTHER")
-    other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'textcat']
+    # Add labels to text classifier
+    textcat.add_label("Conditional")
+    textcat.add_label("NoConditional")
 
-    n_iter = 1
-    random.shuffle(train)
-    # Only train the textcat pipe
-    # with nlp.disable_pipes(*other_pipes):
-    #     optimizer = nlp.begin_training()
-    #     print("Training model...")
-    #     for i in range(n_iter):
-    #         losses = {}
-    #         batches = minibatch(train, size=compounding(4, 32, 1.001))
-    #         for batch in batches:
-    #             texts, annotations = zip(*batch)
-    #             nlp.update(texts, annotations, sgd=optimizer,
-    #                        drop=0.2, losses=losses)
+    training_set = create_training_dataset()
+    random.shuffle(training_set)
 
-    # Only train the textcat pipe
-    # with nlp.disable_pipes(*other_pipes):
-    #     optimizer = nlp.begin_training()
-    #     print("Training model...")
-    #     for i in range(n_iter):
-    #         losses = {}
-    #         batches = minibatch(train, size=compounding(4, 32, 1.001))
-    #         for batch in batches:
-    #             texts, annotations = zip(*batch)
-    #             texts = [nlp(text) for text, entities in batch]
-    #             annotations = [{"cats": entities} for text, entities in batch]
-    #             nlp.update(texts, annotations, sgd=optimizer,
-    #                        drop=0.2, losses=losses)
-
-    other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'textcat']
+    pipe_exceptions = ["textcat", "trf_wordpiecer", "trf_tok2vec"]
+    other_pipes = [pipe for pipe in nlp.pipe_names if pipe not in pipe_exceptions]
+    n_iter = 30
     with nlp.disable_pipes(*other_pipes):  # only train textcat
         optimizer = nlp.begin_training()
         print("Training the model...")
-        print('{:^5}\t{:^5}\t{:^5}\t{:^5}'.format('LOSS', 'P', 'R', 'F'))
+        print("{:^5}\t{:^5}\t{:^5}\t{:^5}".format("LOSS", "P", "R", "F"))
+        batch_sizes = compounding(4.0, 32.0, 1.001)
         for i in range(n_iter):
             losses = {}
             # batch up the examples using spaCy's minibatch
-            batches = minibatch(train, size=compounding(4., 32., 1.001))
+            random.shuffle(training_set)
+            batches = minibatch(training_set, size=batch_sizes)
             for batch in batches:
                 texts, annotations = zip(*batch)
-                nlp.update(texts, annotations, sgd=optimizer, drop=0.2,
-                           losses=losses)
-
+                nlp.update(texts, annotations, sgd=optimizer, drop=0.2, losses=losses)
+          
+    # n_iter = 30
+    # other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'textcat']
+    # with nlp.disable_pipes(*other_pipes):  # only train textcat
+    #     optimizer = nlp.begin_training()
+    #     print("Training the model...")
+    #     print('{:^5}\t{:^5}\t{:^5}\t{:^5}'.format('LOSS', 'P', 'R', 'F'))
+    #     for i in range(n_iter):
+    #         losses = {}
+    #         # batch up the examples using spaCy's minibatch
+    #         batches = minibatch(training_set, size=compounding(4., 32., 1.001))
+    #         for batch in batches:
+    #             texts, annotations = zip(*batch)
+    #             nlp.update(texts, annotations, sgd=optimizer, drop=0.2,
+    #                        losses=losses)
     test_data = pd.read_csv("fold/if_else.csv", sep=";", encoding='cp1252')
     for index, row in test_data.iterrows():
         doc = nlp(row["line"])
-        test_data.loc[index, 'cats'] = doc.cats["POSITIVE"]
+        test_data.loc[index, 'cats'] = doc.cats["Conditional"]
 
-        if doc.cats["POSITIVE"] > 0.5:
+        if doc.cats["Conditional"] > 0.5:
             test_data.loc[index, 'pred'] = 1
         else:
             test_data.loc[index, 'pred'] = 0
@@ -181,17 +198,7 @@ def main():
     test_data.to_csv('fold/result_1.csv', index=False)
     print(test_data.head())
 
-    # with open('fold/if_test.txt', 'r', encoding='utf-8') as file:
-    #     Lines = file.readlines()
-    #     random.shuffle(Lines)
-
-    #     with open('fold/res.txt', 'a', encoding='utf-8') as the_file:
-    #         for line in Lines:
-    #             doc = nlp(line)
-
-    #             the_file.write(
-    #                 line + "," + "Poz:" + str(doc.cats["POSITIVE"]) + ",")
-
+    roc_auc_curve(test_data)
 
 if __name__ == "__main__":
     main()

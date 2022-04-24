@@ -9,6 +9,7 @@ from pandas import DataFrame
 import sklearn.metrics as metrics
 import matplotlib.pyplot as plt
 from pathlib import Path
+from sklearn.utils import shuffle
 
 
 def check_for_if_statements(file):
@@ -79,7 +80,7 @@ def create_data():
 
 
 def roc_auc_curve(data):
-    fpr, tpr, threshold = metrics.roc_curve(data['val'], data['cats'])
+    fpr, tpr, threshold = metrics.roc_curve(data['val'], data['pred'])
     roc_auc = metrics.auc(fpr, tpr)
 
     plt.title('Receiver Operating Characteristic')
@@ -96,7 +97,7 @@ def roc_auc_curve(data):
 
 def create_training_dataset():
     train = []
-    with open('fold/noif_statement2s.txt', 'r', encoding='utf-8') as file:
+    with open('train/noif_100.txt', 'r', encoding='utf-8') as file:
         Lines = file.readlines()
 
         for line in Lines:
@@ -104,7 +105,7 @@ def create_training_dataset():
             cat = {"cats": {'Conditional': value, 'NoConditional': not value}}
             train.append(tuple([line, cat]))
 
-    with open('fold/if_statements.txt', 'r', encoding='utf-8') as file:
+    with open('train/if_100.txt', 'r', encoding='utf-8') as file:
         Lines = file.readlines()
         for line in Lines:
             value = True
@@ -157,7 +158,7 @@ def mas():
 
 
 def main():
-    model = "logic_model"
+    model = None
     if model is not None:
         nlp = spacy.load(model)  # load existing spacy model
         print("Loaded model '%s'" % model)
@@ -167,7 +168,7 @@ def main():
 
     if 'textcat' not in nlp.pipe_names:
         textcat = nlp.create_pipe(
-            "textcat", config={"exclusive_classes": True, "architecture": "simple_cnn"})
+            "textcat", config={"exclusive_classes": True, "architecture": "ensemble"})
         nlp.add_pipe(textcat, last=True)
     else:
         textcat = nlp.get_pipe("textcat")
@@ -198,35 +199,53 @@ def main():
                 nlp.update(texts, annotations, sgd=optimizer,
                            drop=0.2, losses=losses)
 
-    test_data = pd.read_csv("fold/if_else.csv", sep=";", encoding='cp1252')
+    test_data = pd.read_csv("test/test_set.csv", sep=";", encoding='utf-8')
     for index, row in test_data.iterrows():
-        doc = nlp(row["line"])
-        test_data.loc[index, 'cats'] = doc.cats["Conditional"]
+        doc = nlp(row["text"])
+        test_data.loc[index, 'pred'] = doc.cats["Conditional"]
+        if doc.cats["Conditional"] > 0.5:
+            test_data.loc[index, 'pred_val'] = 1
+        else:
+            test_data.loc[index, 'pred_val'] = 0
 
-    test_data.to_csv('fold/result_1.csv', index=False)
+    print('Precision: %.3f' % metrics.precision_score(
+        test_data["val"].to_list(), test_data["pred_val"].to_list()))
+    print('Recall: %.3f' % metrics.recall_score(
+        test_data["val"].to_list(), test_data["pred_val"].to_list()))
+    print('Accuracy: %.3f' % metrics.accuracy_score(
+        test_data["val"].to_list(), test_data["pred_val"].to_list()))
+    print('F1 Score: %.3f' % metrics.f1_score(
+        test_data["val"].to_list(), test_data["pred_val"].to_list()))
+    # test_data.to_csv('fold/test_eur_100.csv', index=False)
+
+    output_dir = "logic_model_100_ensemble"
+    if output_dir is not None:
+        output_dir = Path(output_dir)
+        if not output_dir.exists():
+            output_dir.mkdir()
+        nlp.meta['name'] = "Logic"  # rename model
+        nlp.to_disk(output_dir)
+        print("Saved model to", output_dir)
+
+    # df = pd.DataFrame(columns=['text', 'prediction'])
+    # with open('sample/eurlex_01.txt', 'r', encoding='utf-8') as file:
+    #     Lines = file.readlines()
+    #     for line in Lines:
+    #         doc = nlp(line)
+    #         df = df.append(
+    #             {'text': line, 'prediction': doc.cats["Conditional"]}, ignore_index=True)
+
+    # test_data = pd.read_csv("fold/test_doc.csv", encoding='utf8')
+    # for index, row in df.iterrows():
+    #     doc = row["text"]
+    #     if doc.find("if ") != -1 or doc.find("if,") != -1 or doc.find("If ") != -1 or doc.find("If,") != -1 or doc.find("when") != -1 or doc.find("When") != -1 or doc.find("where") != -1 or doc.find("Where") != -1:
+    #         df.loc[index, 'val'] = 1
+    #     else:
+    #         df.loc[index, 'val'] = 0
+    test_data = shuffle(test_data)
     roc_auc_curve(test_data)
-    mas()
 
-    # output_dir = "logic_model"
-    # if output_dir is not None:
-    #     output_dir = Path(output_dir)
-    #     if not output_dir.exists():
-    #         output_dir.mkdir()
-    #     nlp.meta['name'] = "Logic"  # rename model
-    #     nlp.to_disk(output_dir)
-    #     print("Saved model to", output_dir)
-
-    df = pd.DataFrame(columns=['text', 'prediction'])
-    with open('sample/a310bb91.p.html.293e9e18.txt', 'r', encoding='utf-8') as file:
-        Lines = file.readlines()
-        for line in Lines:
-            doc = nlp(line)
-            df = df.append(
-                {'text': line, 'prediction': doc.cats["Conditional"]}, ignore_index=True)
-
-    roc_auc_curve(df)
-
-    df.to_csv('fold/test_doc.csv', index=False)
+    # df.to_csv('test/test_100_eur.csv', index=False)
 
 
 if __name__ == "__main__":

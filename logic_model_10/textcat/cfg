@@ -1,0 +1,9 @@
+{
+  "exclusive_classes":true,
+  "architecture":"simple_cnn",
+  "labels":[
+    "Conditional",
+    "NoConditional"
+  ],
+  "pretrained_vectors":null
+}

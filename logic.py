@@ -8,6 +8,8 @@ import random
 from pandas import DataFrame
 import sklearn.metrics as metrics
 import matplotlib.pyplot as plt
+from pathlib import Path
+
 
 def check_for_if_statements(file):
     if_paragraphs = []
@@ -75,20 +77,22 @@ def create_data():
         for line in if_paragraphs:
             the_file.write(line)
 
+
 def roc_auc_curve(data):
-    fpr, tpr, threshold = metrics.roc_curve(data['val'], data['pred'])
+    fpr, tpr, threshold = metrics.roc_curve(data['val'], data['cats'])
     roc_auc = metrics.auc(fpr, tpr)
 
     plt.title('Receiver Operating Characteristic')
-    plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
-    plt.legend(loc = 'lower right')
-    plt.plot([0, 1], [0, 1],'r--')
+    plt.plot(fpr, tpr, 'b', label='AUC = %0.2f' % roc_auc)
+    plt.legend(loc='lower right')
+    plt.plot([0, 1], [0, 1], 'r--')
     plt.xlim([0, 1])
     plt.ylim([0, 1])
     plt.ylabel('True Positive Rate')
     plt.xlabel('False Positive Rate')
     # plt.show()
     plt.savefig("mygraph.png")
+
 
 def create_training_dataset():
     train = []
@@ -106,8 +110,9 @@ def create_training_dataset():
             value = True
             cat = {"cats": {'Conditional': value, 'NoConditional': not value}}
             train.append(tuple([line, cat]))
-    
+
     return train
+
 
 def evaluate(tokenizer, textcat, texts, cats):
     docs = (tokenizer(text) for text in texts)
@@ -138,11 +143,31 @@ def evaluate(tokenizer, textcat, texts, cats):
         f_score = 2 * (precision * recall) / (precision + recall)
     return {"textcat_p": precision, "textcat_r": recall, "textcat_f": f_score}
 
+
+def mas():
+    test_data = pd.read_csv("fold/test_doc.csv", encoding='utf8')
+    for index, row in test_data.iterrows():
+        doc = row["text"]
+        if doc.find("if ") != -1 or doc.find("if,") != -1 or doc.find("If ") != -1 or doc.find("If,") != -1 or doc.find("when") != -1 or doc.find("When") != -1 or doc.find("where") != -1 or doc.find("Where") != -1:
+            test_data.loc[index, 'val'] = 1
+        else:
+            test_data.loc[index, 'val'] = 0
+
+    test_data.to_csv('fold/test_doc.csv', index=False)
+
+
 def main():
-    nlp = spacy.load("en_core_web_sm")
+    model = "logic_model"
+    if model is not None:
+        nlp = spacy.load(model)  # load existing spacy model
+        print("Loaded model '%s'" % model)
+    else:
+        nlp = spacy.blank('en')  # create blank Language class
+        print("Created blank 'en' model")
 
     if 'textcat' not in nlp.pipe_names:
-        textcat = nlp.create_pipe("textcat", config={"exclusive_classes": True, "architecture": "simple_cnn"})
+        textcat = nlp.create_pipe(
+            "textcat", config={"exclusive_classes": True, "architecture": "simple_cnn"})
         nlp.add_pipe(textcat, last=True)
     else:
         textcat = nlp.get_pipe("textcat")
@@ -155,7 +180,8 @@ def main():
     random.shuffle(training_set)
 
     pipe_exceptions = ["textcat", "trf_wordpiecer", "trf_tok2vec"]
-    other_pipes = [pipe for pipe in nlp.pipe_names if pipe not in pipe_exceptions]
+    other_pipes = [
+        pipe for pipe in nlp.pipe_names if pipe not in pipe_exceptions]
     n_iter = 30
     with nlp.disable_pipes(*other_pipes):  # only train textcat
         optimizer = nlp.begin_training()
@@ -169,36 +195,39 @@ def main():
             batches = minibatch(training_set, size=batch_sizes)
             for batch in batches:
                 texts, annotations = zip(*batch)
-                nlp.update(texts, annotations, sgd=optimizer, drop=0.2, losses=losses)
-          
-    # n_iter = 30
-    # other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'textcat']
-    # with nlp.disable_pipes(*other_pipes):  # only train textcat
-    #     optimizer = nlp.begin_training()
-    #     print("Training the model...")
-    #     print('{:^5}\t{:^5}\t{:^5}\t{:^5}'.format('LOSS', 'P', 'R', 'F'))
-    #     for i in range(n_iter):
-    #         losses = {}
-    #         # batch up the examples using spaCy's minibatch
-    #         batches = minibatch(training_set, size=compounding(4., 32., 1.001))
-    #         for batch in batches:
-    #             texts, annotations = zip(*batch)
-    #             nlp.update(texts, annotations, sgd=optimizer, drop=0.2,
-    #                        losses=losses)
+                nlp.update(texts, annotations, sgd=optimizer,
+                           drop=0.2, losses=losses)
+
     test_data = pd.read_csv("fold/if_else.csv", sep=";", encoding='cp1252')
     for index, row in test_data.iterrows():
         doc = nlp(row["line"])
         test_data.loc[index, 'cats'] = doc.cats["Conditional"]
 
-        if doc.cats["Conditional"] > 0.5:
-            test_data.loc[index, 'pred'] = 1
-        else:
-            test_data.loc[index, 'pred'] = 0
-
     test_data.to_csv('fold/result_1.csv', index=False)
-    print(test_data.head())
-
     roc_auc_curve(test_data)
+    mas()
+
+    # output_dir = "logic_model"
+    # if output_dir is not None:
+    #     output_dir = Path(output_dir)
+    #     if not output_dir.exists():
+    #         output_dir.mkdir()
+    #     nlp.meta['name'] = "Logic"  # rename model
+    #     nlp.to_disk(output_dir)
+    #     print("Saved model to", output_dir)
+
+    df = pd.DataFrame(columns=['text', 'prediction'])
+    with open('sample/a310bb91.p.html.293e9e18.txt', 'r', encoding='utf-8') as file:
+        Lines = file.readlines()
+        for line in Lines:
+            doc = nlp(line)
+            df = df.append(
+                {'text': line, 'prediction': doc.cats["Conditional"]}, ignore_index=True)
+
+    roc_auc_curve(df)
+
+    df.to_csv('fold/test_doc.csv', index=False)
+
 
 if __name__ == "__main__":
     main()

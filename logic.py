@@ -97,7 +97,7 @@ def roc_auc_curve(data):
 
 def create_training_dataset():
     train = []
-    with open('train/noif_100.txt', 'r', encoding='utf-8') as file:
+    with open('train/noif_10.txt', 'r', encoding='utf-8') as file:
         Lines = file.readlines()
 
         for line in Lines:
@@ -105,7 +105,7 @@ def create_training_dataset():
             cat = {"cats": {'Conditional': value, 'NoConditional': not value}}
             train.append(tuple([line, cat]))
 
-    with open('train/if_100.txt', 'r', encoding='utf-8') as file:
+    with open('train/if_10.txt', 'r', encoding='utf-8') as file:
         Lines = file.readlines()
         for line in Lines:
             value = True
@@ -158,7 +158,7 @@ def mas():
 
 
 def main():
-    model = None
+    model = "logic_model_10"
     if model is not None:
         nlp = spacy.load(model)  # load existing spacy model
         print("Loaded model '%s'" % model)
@@ -200,6 +200,8 @@ def main():
                            drop=0.2, losses=losses)
 
     test_data = pd.read_csv("test/test_set.csv", sep=";", encoding='utf-8')
+    test_data = shuffle(test_data)
+    test_data = test_data.iloc[:-20]
     for index, row in test_data.iterrows():
         doc = nlp(row["text"])
         test_data.loc[index, 'pred'] = doc.cats["Conditional"]
@@ -218,14 +220,14 @@ def main():
         test_data["val"].to_list(), test_data["pred_val"].to_list()))
     # test_data.to_csv('fold/test_eur_100.csv', index=False)
 
-    output_dir = "logic_model_100_ensemble"
-    if output_dir is not None:
-        output_dir = Path(output_dir)
-        if not output_dir.exists():
-            output_dir.mkdir()
-        nlp.meta['name'] = "Logic"  # rename model
-        nlp.to_disk(output_dir)
-        print("Saved model to", output_dir)
+    # output_dir = "logic_model_100_ensemble"
+    # if output_dir is not None:
+    #     output_dir = Path(output_dir)
+    #     if not output_dir.exists():
+    #         output_dir.mkdir()
+    #     nlp.meta['name'] = "Logic"  # rename model
+    #     nlp.to_disk(output_dir)
+    #     print("Saved model to", output_dir)
 
     # df = pd.DataFrame(columns=['text', 'prediction'])
     # with open('sample/eurlex_01.txt', 'r', encoding='utf-8') as file:

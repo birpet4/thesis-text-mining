@@ -18,3 +18,27 @@ Precision: 0.615
 Recall: 0.800
 Accuracy: 0.650
 F1 Score: 0.696
+
+Logic10:2
+Precision: 0.474
+Recall: 0.900
+Accuracy: 0.450
+F1 Score: 0.621
+
+Lgic50v2
+Precision: 0.444
+Recall: 0.600
+Accuracy: 0.425
+F1 Score: 0.511
+
+logic100v2:
+Precision: 0.615
+Recall: 0.800
+Accuracy: 0.650
+F1 Score: 0.696
+
+logic100eur
+Precision: 0.478
+Recall: 0.579
+Accuracy: 0.487
+F1 Score: 0.524

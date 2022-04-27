@@ -7157,9 +7157,9 @@ For purposes of calculating a Moody’s Default Probability Rating, each applica
 (b) if not determined pursuant to clause (a) above, if the Obligor of such Collateral Debt Obligation has a long-term issuer rating by Moody’s, then such long-term issuer rating;
 (c) if not determined pursuant to clause (a) or (b) above, if another obligation of the Obligor is rated by Moody’s, then by adjusting the rating of the related Moody’s rated obligations of the related Obligor by the number of rating sub-categories according to the table below:
 Obligation Category of Rated Obligation
-‎
+
 Rating of Rated Obligation
-‎Number of Subcategories Relative to Rated Obligation Rating
+Number of Subcategories Relative to Rated Obligation Rating
 
 Senior secured obligation...........greater than or equal to B2 -1
 Senior secured obligation ...........less than B2 -2

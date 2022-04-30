@@ -164,7 +164,7 @@ def train_custom_ner():
         nlp.to_disk(output_dir)
         print("Saved model to", output_dir)
 
-    with open('test/test_ner.txt', 'r', encoding='utf-8') as file:
+    with open('test/test_eur_ner.txt', 'r', encoding='utf-8') as file:
         all_of_it = file.read()
         doc = nlp(all_of_it)
         displacy.serve(doc, style="ent")

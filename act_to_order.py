@@ -44,20 +44,21 @@ TRAIN_DATA = [
                       (86, 107, "Abbreviation")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """point (11) of Article 4(1) of Directive 2014/65/EU (as amended, “MiFID II”)""",
+        {"entities": [(0, 25, "Section"), (30, 49, "Order"),
+                      (65, 72, "Abbreviation")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """Directive 2016/97/EU""",
+        {"entities": [(0, 19, "Order")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """point (10) of Article 4(1) of MiFID II""",
+        {"entities": [(0, 25, "Section"), (30, 37, "Order")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """Section 21(1) of the Financial Services and Markets Act 2000""",
+        {"entities": [(0, 12, "Section"), (21, 59, "Order")]}
     ),
     (
         """""",
@@ -89,7 +90,7 @@ TRAIN_DATA = [
 
 
 def train_custom_ner():
-    model = "act_model_v2"
+    model = None
     if model is not None:
         nlp = spacy.load(model)  # load existing spacy model
         print("Loaded model '%s'" % model)
@@ -112,26 +113,26 @@ def train_custom_ner():
 
     # Get names of other pipes to disable them during training to train only NER
     other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
-    # with nlp.disable_pipes(*other_pipes):  # only train NER
-    #     for itn in range(1000):
-    #         random.shuffle(TRAIN_DATA)
-    #         losses = {}
-    #         batches = minibatch(TRAIN_DATA, size=compounding(4., 32., 1.001))
-    #         for batch in batches:
-    #             texts, annotations = zip(*batch)
-    #             nlp.update(texts, annotations, sgd=optimizer, drop=0.35,
-    #                        losses=losses)
-    #         print('Losses', losses)
+    with nlp.disable_pipes(*other_pipes):  # only train NER
+        for itn in range(1000):
+            random.shuffle(TRAIN_DATA)
+            losses = {}
+            batches = minibatch(TRAIN_DATA, size=compounding(4., 32., 1.001))
+            for batch in batches:
+                texts, annotations = zip(*batch)
+                nlp.update(texts, annotations, sgd=optimizer, drop=0.35,
+                           losses=losses)
+            print('Losses', losses)
     nlp.max_length = 200000000
 
-    output_dir = "act_model_v2"
-    # if output_dir is not None:
-    #     output_dir = Path(output_dir)
-    #     if not output_dir.exists():
-    #         output_dir.mkdir()
-    #     nlp.meta['name'] = "CustomNER"  # rename model
-    #     nlp.to_disk(output_dir)
-    #     print("Saved model to", output_dir)
+    output_dir = "order"
+    if output_dir is not None:
+        output_dir = Path(output_dir)
+        if not output_dir.exists():
+            output_dir.mkdir()
+        nlp.meta['name'] = "CustomNER"  # rename model
+        nlp.to_disk(output_dir)
+        print("Saved model to", output_dir)
 
     # with open('sample/a310bb91.p.html.293e9e18.txt', 'r', encoding='utf-8') as file:
     #     all_of_it = file.read()

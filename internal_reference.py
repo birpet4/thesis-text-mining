@@ -99,20 +99,20 @@ TRAIN_DATA = [
         {"entities": [(278, 390, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """The Notes will be subject to Optional Redemption and Mandatory Redemption and Special Redemption, each as described herein. See Condition 7 (Redemption and Purchase).""",
+        {"entities": [(128, 164, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """See the section entitled “Risk Factors” herein for a discussion of certain factors to be considered in connection with an investment in the Notes.""",
+        {"entities": [(25, 38, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """The Notes are limited recourse obligations of the Issuer which are payable solely out of amounts received by or on behalf of the Issuer in respect of the Collateral (as defined herein). The net proceeds of the realisation of the security over the Collateral upon acceleration of the Notes following a Note Event of Default (as defined herein) may be insufficient to pay all amounts due to the Noteholders (as defined herein) after making payments to other creditors of the Issuer ranking prior thereto or pari passu therewith. In the event of a shortfall in such proceeds, the Issuer will not be obliged to pay, and the other assets (including the Issuer Profit Account and the rights of the Issuer under the Corporate Services Agreement (each as defined herein)) of the Issuer will not be available for payment of such shortfall, all claims in respect of which shall be extinguished. See Condition 4 (Security).""",
+        {"entities": [(889, 910, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """The Notes have not been, and will not be, registered under the United States Securities Act of 1933, as amended (the “Securities Act”) and will be offered only: (a) outside the United States to non-U.S. Persons (as defined in Regulation S under the Securities Act (“Regulation S”)); and (b) within the United States to persons and outside the United States to U.S. Persons (as such term is defined in Regulation S (“U.S. Persons”)), in each case, who are both qualified institutional buyers (as defined in Rule 144A (“Rule 144A”) under the Securities Act) in reliance on Rule 144A and qualified purchasers for the purposes of Section 3(c)(7) of the United States Investment Company Act of 1940, as amended (the “Investment Company Act”). Neither the Issuer nor the Collateral Manager will be registered under the Investment Company Act. Interests in the Notes will be subject to certain restrictions on transfer, and each purchaser of Notes offered hereby in making its purchase will be deemed to have made certain acknowledgements, representations and agreements. See “Plan of Distribution” and “Transfer Restrictions”.""",
+        {"entities": [(1070, 1089, "Internal-Reference"), (1097, 1117, "Internal-Reference")]}
     ),
     (
         """""",

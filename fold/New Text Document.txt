@@ -1,0 +1,900 @@
+100
+Created blank 'en' model
+Training the model...        
+LOSS      P       R       F  
+Precision: 0.778
+Recall: 0.609  
+Accuracy: 0.618
+F1 Score: 0.683
+save
+101
+Created blank 'en' model
+Training the model...        
+LOSS      P       R       F  
+Precision: 0.812
+Recall: 0.619
+Accuracy: 0.676
+F1 Score: 0.703
+save
+102
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 1.000
+Recall: 0.810
+Accuracy: 0.882
+F1 Score: 0.895
+save
+103
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.950
+Recall: 0.792
+Accuracy: 0.824
+F1 Score: 0.864
+save
+104
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.917
+Recall: 0.440
+Accuracy: 0.559
+F1 Score: 0.595
+save
+105
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.722
+Recall: 0.619
+Accuracy: 0.618
+F1 Score: 0.667
+save
+106
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.708
+Recall: 0.773
+Accuracy: 0.647
+F1 Score: 0.739
+save
+107
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.818
+Recall: 0.692
+Accuracy: 0.647
+F1 Score: 0.750
+save
+108
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.875
+Recall: 0.636
+Accuracy: 0.706
+F1 Score: 0.737
+save
+109
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.682
+Recall: 0.750
+Accuracy: 0.647
+F1 Score: 0.714
+save
+110
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.812
+Recall: 0.650
+Accuracy: 0.706
+F1 Score: 0.722
+save
+111
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.842
+Recall: 0.696
+Accuracy: 0.706
+F1 Score: 0.762
+save
+112
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.895
+Recall: 0.810
+Accuracy: 0.824
+F1 Score: 0.850
+save
+113
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.789
+Recall: 0.682
+Accuracy: 0.676
+F1 Score: 0.732
+save
+114
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.900
+Recall: 1.000
+Accuracy: 0.941
+F1 Score: 0.947
+save
+115
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.783
+Recall: 0.818
+Accuracy: 0.735
+F1 Score: 0.800
+save
+116
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.667
+Recall: 0.632
+Accuracy: 0.618
+F1 Score: 0.649
+save
+117
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.810
+Recall: 0.944
+Accuracy: 0.853
+F1 Score: 0.872
+save
+118
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.679
+Recall: 0.950
+Accuracy: 0.706
+F1 Score: 0.792
+save
+119
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.769
+Recall: 0.909
+Accuracy: 0.765
+F1 Score: 0.833
+save
+120
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.955
+Recall: 0.913
+Accuracy: 0.912
+F1 Score: 0.933
+save
+121
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.706
+Recall: 0.571
+Accuracy: 0.588
+F1 Score: 0.632
+save
+122
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.818
+Recall: 0.857
+Accuracy: 0.794
+F1 Score: 0.837
+save
+123
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.720
+Recall: 0.818
+Accuracy: 0.676
+F1 Score: 0.766
+save
+124
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.800
+Recall: 0.762
+Accuracy: 0.735
+F1 Score: 0.780
+save
+125
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.923
+Recall: 0.522
+Accuracy: 0.647
+F1 Score: 0.667
+save
+126
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.818
+Recall: 0.857
+Accuracy: 0.794
+F1 Score: 0.837
+save
+127
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.800
+Recall: 0.762
+Accuracy: 0.735
+F1 Score: 0.780
+save
+128
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.857
+Recall: 0.818
+Accuracy: 0.794
+F1 Score: 0.837
+save
+129
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.720
+Recall: 0.818
+Accuracy: 0.676
+F1 Score: 0.766
+save
+130
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.850
+Recall: 0.739
+Accuracy: 0.735
+F1 Score: 0.791
+save
+131
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 1.000
+Recall: 0.708
+Accuracy: 0.794
+F1 Score: 0.829
+save
+132
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.941
+Recall: 0.667
+Accuracy: 0.735
+F1 Score: 0.780
+save
+133
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.789
+Recall: 0.625
+Accuracy: 0.618
+F1 Score: 0.698
+save
+134
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.571
+Recall: 0.632
+Accuracy: 0.529
+F1 Score: 0.600
+save
+135
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.762
+Recall: 0.727
+Accuracy: 0.676
+F1 Score: 0.744
+save
+136
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.857
+Recall: 0.783
+Accuracy: 0.765
+F1 Score: 0.818
+save
+137
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 1.000
+Recall: 0.905
+Accuracy: 0.941
+F1 Score: 0.950
+save
+138
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.882
+Recall: 0.750
+Accuracy: 0.794
+F1 Score: 0.811
+save
+139
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.722
+Recall: 0.619
+Accuracy: 0.618
+F1 Score: 0.667
+save
+140
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.889
+Recall: 0.696
+Accuracy: 0.735
+F1 Score: 0.780
+save
+141
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.762
+Recall: 0.727
+Accuracy: 0.676
+F1 Score: 0.744
+save
+142
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.933
+Recall: 0.609
+Accuracy: 0.706
+F1 Score: 0.737
+save
+143
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.667
+Recall: 0.762
+Accuracy: 0.618
+F1 Score: 0.711
+save
+144
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.714
+Recall: 0.238
+Accuracy: 0.471
+F1 Score: 0.357
+save
+145
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.875
+Recall: 0.667
+Accuracy: 0.735
+F1 Score: 0.757
+save
+146
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.812
+Recall: 0.542
+Accuracy: 0.588
+F1 Score: 0.650
+save
+147
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.792
+Recall: 0.905
+Accuracy: 0.794
+F1 Score: 0.844
+save
+148
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.895
+Recall: 0.773
+Accuracy: 0.794
+F1 Score: 0.829
+save
+149
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.810
+Recall: 0.773
+Accuracy: 0.735
+F1 Score: 0.791
+save
+150
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.833
+Recall: 0.625
+Accuracy: 0.647
+F1 Score: 0.714
+save
+151
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 1.000
+Recall: 0.900
+Accuracy: 0.941
+F1 Score: 0.947
+save
+152
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.895
+Recall: 0.850
+Accuracy: 0.853
+F1 Score: 0.872
+save
+153
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.900
+Recall: 0.818
+Accuracy: 0.824
+F1 Score: 0.857
+save
+154
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.778
+Recall: 0.636
+Accuracy: 0.647
+F1 Score: 0.700
+save
+155
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 1.000
+Recall: 0.957
+Accuracy: 0.971
+F1 Score: 0.978
+save
+156
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.800
+Recall: 0.842
+Accuracy: 0.794
+F1 Score: 0.821
+save
+157
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.941
+Recall: 0.762
+Accuracy: 0.824
+F1 Score: 0.842
+save
+158
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.750
+Recall: 0.571
+Accuracy: 0.618
+F1 Score: 0.649
+save
+159
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.789
+Recall: 0.714
+Accuracy: 0.706
+F1 Score: 0.750
+save
+160
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.941
+Recall: 0.727
+Accuracy: 0.794
+F1 Score: 0.821
+save
+161
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.882
+Recall: 0.682
+Accuracy: 0.735
+F1 Score: 0.769
+save
+162
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.867
+Recall: 0.591
+Accuracy: 0.676
+F1 Score: 0.703
+save
+163
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.783
+Recall: 0.783
+Accuracy: 0.706
+F1 Score: 0.783
+save
+164
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.810
+Recall: 0.739
+Accuracy: 0.706
+F1 Score: 0.773
+save
+165
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.688
+Recall: 0.550
+Accuracy: 0.588
+F1 Score: 0.611
+save
+166
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 1.000
+Recall: 0.850
+Accuracy: 0.912
+F1 Score: 0.919
+save
+167
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.905
+Recall: 0.905
+Accuracy: 0.882
+F1 Score: 0.905
+save
+168
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.812
+Recall: 0.591
+Accuracy: 0.647
+F1 Score: 0.684
+save
+169
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.762
+Recall: 0.800
+Accuracy: 0.735
+F1 Score: 0.780
+save
+170
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.850
+Recall: 0.810
+Accuracy: 0.794
+F1 Score: 0.829
+save
+171
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.889
+Recall: 0.615
+Accuracy: 0.647
+F1 Score: 0.727
+save
+172
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.727
+Recall: 0.667
+Accuracy: 0.588
+F1 Score: 0.696
+save
+173
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.700
+Recall: 0.636
+Accuracy: 0.588
+F1 Score: 0.667
+save
+174
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.800
+Recall: 0.909
+Accuracy: 0.794
+F1 Score: 0.851
+save
+175
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.773
+Recall: 0.773
+Accuracy: 0.706
+F1 Score: 0.773
+save
+176
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.708
+Recall: 0.810
+Accuracy: 0.676
+F1 Score: 0.756
+save
+177
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.737
+Recall: 0.609
+Accuracy: 0.588
+F1 Score: 0.667
+save
+178
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.941
+Recall: 0.667
+Accuracy: 0.735
+F1 Score: 0.780
+save
+179
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.840
+Recall: 1.000
+Accuracy: 0.882
+F1 Score: 0.913
+save
+180
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.880
+Recall: 0.815
+Accuracy: 0.765
+F1 Score: 0.846
+save
+181
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 1.000
+Recall: 0.947
+Accuracy: 0.971
+F1 Score: 0.973
+save
+182
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.750
+Recall: 0.600
+Accuracy: 0.647
+F1 Score: 0.667
+save
+183
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.905
+Recall: 0.760
+Accuracy: 0.765
+F1 Score: 0.826
+save
+184
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.900
+Recall: 0.857
+Accuracy: 0.853
+F1 Score: 0.878
+save
+185
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.826
+Recall: 0.826
+Accuracy: 0.765
+F1 Score: 0.826
+save
+186
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.727
+Recall: 0.762
+Accuracy: 0.676
+F1 Score: 0.744
+save
+187
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.783
+Recall: 0.783
+Accuracy: 0.706
+F1 Score: 0.783
+save
+188
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.867
+Recall: 0.591
+Accuracy: 0.676
+F1 Score: 0.703
+save
+189
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.818
+Recall: 0.750
+Accuracy: 0.706
+F1 Score: 0.783
+save
+190
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.550
+Recall: 0.647
+Accuracy: 0.559
+F1 Score: 0.595
+save
+191
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.867
+Recall: 1.000
+Accuracy: 0.882
+F1 Score: 0.929
+save
+192
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 1.000
+Recall: 0.333
+Accuracy: 0.588
+F1 Score: 0.500
+save
+193
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.913
+Recall: 0.955
+Accuracy: 0.912
+F1 Score: 0.933
+save
+194
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 1.000
+Recall: 0.955
+Accuracy: 0.971
+F1 Score: 0.977
+save
+195
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.833
+Recall: 0.750
+Accuracy: 0.765
+F1 Score: 0.789
+save
+196
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.619
+Recall: 0.650
+Accuracy: 0.559
+F1 Score: 0.634
+save
+197
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.647
+Recall: 0.478
+Accuracy: 0.471
+F1 Score: 0.550
+save
+198
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.826
+Recall: 0.905
+Accuracy: 0.824
+F1 Score: 0.864
+save
+199
+Created blank 'en' model
+Training the model...
+LOSS      P       R       F
+Precision: 0.706
+Recall: 0.667
+Accuracy: 0.676
+F1 Score: 0.686
+save

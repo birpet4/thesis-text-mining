@@ -1,0 +1,2 @@
+"auc,prec,acc,rec,f1",acc,auc,f1,prec,rec
+,Accuracy: 0.912,0.9201388888888888,F1 Score: 0.914,Precision: 0.941,Recall: 0.889

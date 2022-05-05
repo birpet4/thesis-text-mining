@@ -79,7 +79,7 @@ def create_data():
             the_file.write(line)
 
 
-def roc_auc_curve(data):
+def roc_auc_curve(data, n):
     fpr, tpr, threshold = metrics.roc_curve(data['val'], data['pred'])
     roc_auc = metrics.auc(fpr, tpr)
 
@@ -92,12 +92,13 @@ def roc_auc_curve(data):
     plt.ylabel('True Positive Rate')
     plt.xlabel('False Positive Rate')
     # plt.show()
-    plt.savefig("mygraph.png")
+    plt.savefig("eur/roc_" + str(n) +".png")
+    plt.clf()
 
 
 def create_training_dataset():
     train = []
-    with open('train/noif_10.txt', 'r', encoding='utf-8') as file:
+    with open('train/noif_eur.txt', 'r', encoding='utf-8') as file:
         Lines = file.readlines()
 
         for line in Lines:
@@ -105,7 +106,7 @@ def create_training_dataset():
             cat = {"cats": {'Conditional': value, 'NoConditional': not value}}
             train.append(tuple([line, cat]))
 
-    with open('train/if_10.txt', 'r', encoding='utf-8') as file:
+    with open('train/if_eur.txt', 'r', encoding='utf-8') as file:
         Lines = file.readlines()
         for line in Lines:
             value = True
@@ -157,8 +158,8 @@ def mas():
     test_data.to_csv('fold/test_doc.csv', index=False)
 
 
-def main():
-    model = "logic_model_10"
+def main(training_set, n):
+    model = None
     if model is not None:
         nlp = spacy.load(model)  # load existing spacy model
         print("Loaded model '%s'" % model)
@@ -168,7 +169,7 @@ def main():
 
     if 'textcat' not in nlp.pipe_names:
         textcat = nlp.create_pipe(
-            "textcat", config={"exclusive_classes": True, "architecture": "ensemble"})
+            "textcat", config={"exclusive_classes": True, "architecture": "simple_cnn"})
         nlp.add_pipe(textcat, last=True)
     else:
         textcat = nlp.get_pipe("textcat")
@@ -177,8 +178,8 @@ def main():
     textcat.add_label("Conditional")
     textcat.add_label("NoConditional")
 
-    training_set = create_training_dataset()
-    random.shuffle(training_set)
+    # training_set = create_training_dataset()
+    # random.shuffle(training_set)
 
     pipe_exceptions = ["textcat", "trf_wordpiecer", "trf_tok2vec"]
     other_pipes = [
@@ -199,7 +200,7 @@ def main():
                 nlp.update(texts, annotations, sgd=optimizer,
                            drop=0.2, losses=losses)
 
-    test_data = pd.read_csv("test/test_set.csv", sep=";", encoding='utf-8')
+    test_data = pd.read_csv("test/test_new.csv", sep=";", encoding='utf-8')
     test_data = shuffle(test_data)
     test_data = test_data.iloc[:-20]
     for index, row in test_data.iterrows():
@@ -210,17 +211,34 @@ def main():
         else:
             test_data.loc[index, 'pred_val'] = 0
 
-    print('Precision: %.3f' % metrics.precision_score(
-        test_data["val"].to_list(), test_data["pred_val"].to_list()))
-    print('Recall: %.3f' % metrics.recall_score(
-        test_data["val"].to_list(), test_data["pred_val"].to_list()))
-    print('Accuracy: %.3f' % metrics.accuracy_score(
-        test_data["val"].to_list(), test_data["pred_val"].to_list()))
-    print('F1 Score: %.3f' % metrics.f1_score(
-        test_data["val"].to_list(), test_data["pred_val"].to_list()))
-    # test_data.to_csv('fold/test_eur_100.csv', index=False)
-
-    # output_dir = "logic_model_100_ensemble"
+    # print('Precision: %.3f' % metrics.precision_score(
+    #     test_data["val"].to_list(), test_data["pred_val"].to_list()))
+    # print('Recall: %.3f' % metrics.recall_score(
+    #     test_data["val"].to_list(), test_data["pred_val"].to_list()))
+    # print('Accuracy: %.3f' % metrics.accuracy_score(
+    #     test_data["val"].to_list(), test_data["pred_val"].to_list()))
+    # print('F1 Score: %.3f' % metrics.f1_score(
+    #     test_data["val"].to_list(), test_data["pred_val"].to_list()))
+    # test_data.to_csv('fold/test_new_100.csv', index=False)
+    # with open("test/results_to_plot.csv", 'a+', encoding='utf-8') as f:
+    #     print("save")
+    #     prec = 'Precision: %.3f' % metrics.precision_score(test_data["val"].to_list(), test_data["pred_val"].to_list())
+    #     rec = 'Recall: %.3f' % metrics.recall_score(test_data["val"].to_list(), test_data["pred_val"].to_list())
+    #     acc = 'Accuracy: %.3f' % metrics.accuracy_score(test_data["val"].to_list(), test_data["pred_val"].to_list())
+    #     f1  ='F1 Score: %.3f' % metrics.f1_score(test_data["val"].to_list(), test_data["pred_val"].to_list())
+    #     f.write(str(n) + "round: " + prec + ", " + rec + ", " + acc + ", " + f1)
+    #     f.write('\n')
+    plot_data = pd.read_csv("test/test_plot_eur_init.csv", sep=",", encoding='utf-8')
+    prec = metrics.precision_score(test_data["val"].to_list(), test_data["pred_val"].to_list())
+    rec = metrics.recall_score(test_data["val"].to_list(), test_data["pred_val"].to_list())
+    acc = metrics.accuracy_score(test_data["val"].to_list(), test_data["pred_val"].to_list())
+    f1  = metrics.f1_score(test_data["val"].to_list(), test_data["pred_val"].to_list())
+    fpr, tpr, threshold = metrics.roc_curve(test_data['val'], test_data['pred'])
+    roc_auc = metrics.auc(fpr, tpr)
+    row = {'auc' : roc_auc, 'prec': prec, 'acc': acc, 'rec': rec, 'f1': f1 }
+    plot_data = plot_data.append(pd.DataFrame([[roc_auc, prec, acc, rec, f1]], columns=plot_data.columns))
+    plot_data.to_csv('test/test_plot_eur_init.csv', index=False)
+    # output_dir = "logic_model_100"
     # if output_dir is not None:
     #     output_dir = Path(output_dir)
     #     if not output_dir.exists():
@@ -244,11 +262,21 @@ def main():
     #         df.loc[index, 'val'] = 1
     #     else:
     #         df.loc[index, 'val'] = 0
-    test_data = shuffle(test_data)
-    roc_auc_curve(test_data)
+    # roc_auc_curve(test_data, n)
 
     # df.to_csv('test/test_100_eur.csv', index=False)
 
+def delete_random_elems(input_list, n):
+    to_delete = set(random.sample(range(len(input_list)), n))
+    return [x for i,x in enumerate(input_list) if not i in to_delete]
+
 
 if __name__ == "__main__":
-    main()
+    for j in range(0, 5):
+        for i in range(100, 200):
+            print(i)
+            n = 200 - i
+            training_set = create_training_dataset()
+            random.shuffle(training_set)
+            train = delete_random_elems(training_set, n)
+            main(train, n)

@@ -30,7 +30,7 @@ def save(df, n):
     plt.ylim([0, 1])
     plt.ylabel('Precision')
     plt.xlabel('Sample')
-    plt.savefig("test/cross_prec_sum_" + str(n) +".png")
+    plt.savefig("test/initcross_prec_sum_" + str(n) +".png")
     plt.clf()
 
     rec_1 = df['rec'].tolist()
@@ -43,7 +43,7 @@ def save(df, n):
     plt.ylim([0, 1])
     plt.ylabel('Recall')
     plt.xlabel('Sample')
-    plt.savefig("test/cross_rec_sum_" + str(n) +".png")
+    plt.savefig("test/initcross_rec_sum_" + str(n) +".png")
     plt.clf()
 
     acc_1 = df['acc'].tolist()
@@ -56,7 +56,7 @@ def save(df, n):
     plt.ylim([0, 1])
     plt.ylabel('Accuracy')
     plt.xlabel('Sample')
-    plt.savefig("test/cross_acc_sum_" + str(n) +".png")
+    plt.savefig("test/initcross_acc_sum_" + str(n) +".png")
     plt.clf()
 
     f1_1 = df['f1'].tolist()
@@ -69,7 +69,7 @@ def save(df, n):
     plt.ylim([0, 1])
     plt.ylabel('F1')
     plt.xlabel('Sample')
-    plt.savefig("test/cross_F1_sum_" + str(n) +".png")
+    plt.savefig("test/initcross_F1_sum_" + str(n) +".png")
     plt.clf()
 
     auc = df['auc'].tolist()
@@ -82,11 +82,11 @@ def save(df, n):
     plt.ylim([0, 1])
     plt.ylabel('AUC')
     plt.xlabel('Sample')
-    plt.savefig("test/cross_AUC_sum_" + str(n) +".png")
+    plt.savefig("test/initcross_AUC_sum_" + str(n) +".png")
     plt.clf()
 
 def average():
-    plot_data = pd.read_csv("test/test_plot_init_eur.csv", sep=",", encoding='utf-8')
+    plot_data = pd.read_csv("test/test_plot_eur_init.csv", sep=",", encoding='utf-8')
     auc = []
     dfRange1 = plot_data.iloc[0:100]['auc'].tolist()
     dfRange2 = plot_data.iloc[100:200]['auc'].tolist()
@@ -110,11 +110,11 @@ def average():
     plt.ylim([0, 1])
     plt.ylabel('AUC')
     plt.xlabel('Sample')
-    plt.savefig("test/cross_AUCavg_eur_sum.png")
+    plt.savefig("test/initcross_AUCavg_eur_sum.png")
     plt.clf()
 
 def plotos():
-    plot_data = pd.read_csv("test/test_plot_init_eur.csv", sep=",", encoding='utf-8')
+    plot_data = pd.read_csv("test/test_plot_eur_init.csv", sep=",", encoding='utf-8')
 
     dfRange1 = plot_data.iloc[0:100]
     save(dfRange1, 1)

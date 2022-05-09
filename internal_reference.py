@@ -115,50 +115,50 @@ TRAIN_DATA = [
         {"entities": [(1070, 1089, "Internal-Reference"), (1097, 1117, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """The Notes will be subject to Optional Redemption, Mandatory Redemption and Special Redemption, each as described herein. See Condition 7 (Redemption and Purchase).""",
+        {"entities": [(125,161,"Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """SEE THE SECTION ENTITLED “RISK FACTORS” HEREIN FOR A DISCUSSION OF CERTAIN FACTORS TO BE CONSIDERED IN CONNECTION WITH AN INVESTMENT IN THE NOTES.""",
+        {"entities": [(26, 37, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """See Condition 4 (Security).""",
+        {"entities": [(4, 25, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """IN EACH CASE, WHO ARE BOTH QUALIFIED INSTITUTIONAL BUYERS (AS DEFINED IN RULE 144A UNDER THE SECURITIES ACT) IN RELIANCE ON RULE 144A UNDER THE SECURITIES ACT AND QUALIFIED PURCHASERS FOR THE PURPOSES OF SECTION 3(C)(7) OF THE UNITED STATES INVESTMENT COMPANY ACT OF 1940, AS AMENDED (THE “INVESTMENT COMPANY ACT”). THE ISSUER HAS NOT BEEN AND WILL NOT BE REGISTERED UNDER THE INVESTMENT COMPANY ACT. INTERESTS IN THE NOTES WILL BE SUBJECT TO CERTAIN RESTRICTIONS ON TRANSFER, AND EACH PURCHASER OF NOTES OFFERED HEREBY IN MAKING ITS PURCHASE WILL BE REQUIRED TO OR DEEMED TO HAVE MADE CERTAIN ACKNOWLEDGEMENTS, REPRESENTATIONS AND AGREEMENTS. SEE “PLAN OF DISTRIBUTION” AND “TRANSFER RESTRICTIONS”.""",
+        {"entities": [(649, 668, "Internal-Reference"),(676, 696, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """requirements contained in subparagraphs (a) and (e) of Article 7(1) of the Securitisation Regulation through the provision of the Monthly Reports and the Payment Date Reports (see "Description of the Reports") and (B) the Investment Manager shall not be required to provide any reports, data or other information (other than such information and data necessary for completion of the Monthly Reports and the Payment Date Reports) in connection with the reporting requirements contained in subparagraphs (a) and (e) of Article 7(1) of the Securitisation Regulation to the Issuer pursuant to the Investment Management and Collateral Administration Agreement prior to the entry into force of such final disclosure templates. Once the Transparency RTS (as defined below) apply, the Loan Reports and Investor Reports (each as defined below) will be prepared in accordance with the requirements of the Transparency RTS. The Issuer, with the consent of the Investment Manager, will propose in writing to the Collateral Administrator the form, content, method of distribution and timing of such reports and other information. The Collateral Administrator shall consult with the Issuer and the Investment Manager and, if it agrees to assist the Issuer in providing such reporting on such proposed terms, shall confirm such agreement in writing to the Issuer and the Investment Manager and shall make such information (as provided to it by the Issuer (or the Investment Manager on behalf of the Issuer)) available via a website (or procure that such information is made available) currently located at https://pivot.usbank.com (or such other website as may be notified in writing by the Collateral Administrator to the Issuer, the Trustee, the Investment Manager, the Arranger, the Initial Purchaser, the Registrar, each Hedge Counterparty, the Rating Agencies, Bloomberg L.P., Intex Solutions Inc. and the Noteholders in accordance with Condition 16 (Notices)) which shall be accessible to any person (x) who certifies to the Collateral Administrator (such certification to be in the form set out in the Investment Management and Collateral Administration Agreement, which may be given electronically and upon which the Collateral Administrator shall be entitled to rely absolutely and without enquiry or liability) that it is: (i) the Issuer, (ii) the Trustee, (iii) the Investment Manager, (iv) the Arranger, (v) the Initial Purchaser, (vi) a Hedge Counterparty, (vii) a Rating Agency; (viii) Bloomberg L.P., (ix) Intex Solutions Inc., (x) a holder of a beneficial interest in any Note,""",
+        {"entities": [(181, 206, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """No assurance can be made as to the effect of the Volcker Rule on the ability of certain investors subject thereto to acquire or retain an interest in the Notes. Each prospective investor in the Notes should independently consider the potential impact of the Volcker Rule in respect of any investment in the Notes. Investors should conduct their own analysis to determine whether the Issuer is a “covered fund” for their purposes. See further also “Risk Factors– Regulatory Initiatives – Volcker Rule”.""",
+        {"entities": [(448, 498, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """See Condition 7(b)(viii) (Optional Redemption of Subordinated Notes);""",
+        {"entities": [(4, 67, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """(f) on any Payment Date on and after the Effective Date following a Determination Date on which a Coverage Test is not satisfied (to the extent such test is required to be satisfied on such Determination Date) (see Condition 7(c) (Mandatory Redemption upon Breach of Coverage Tests));""",
+        {"entities": [(211, 281, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """on each subsequent Payment Date (to the extent required) out of Interest Proceeds and thereafter out of Principal Proceeds subject to the Priorities of Payment, in each case until redeemed in full or, if earlier, until an Effective Date Rating Event is no longer continuing (see Condition 7(e) (Redemption Upon Effective Date Rating Event));""",
+        {"entities": [(279, 338, "Internal-Reference")]}
     ),
     (
-        """""",
-        {"entities": []}
+        """(i) following expiry of the Reinvestment Period, on each Payment Date out of Principal Proceeds transferred to the Payment Account immediately prior to the related Payment Date (see Condition 7(f) (Redemption Following Expiry of the Reinvestment Period));""",
+        {"entities": [(182, 252, "Internal-Reference")]}
     )
 ]
 
 
 def train_custom_ner():
-    model = 'int_reference'
+    model = "int_reference"
     if model is not None:
         nlp = spacy.load(model)  # load existing spacy model
         print("Loaded model '%s'" % model)
@@ -181,29 +181,30 @@ def train_custom_ner():
 
     # Get names of other pipes to disable them during training to train only NER
     other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
-    # with nlp.disable_pipes(*other_pipes):  # only train NER
-    #     for itn in range(30):
-    #         random.shuffle(TRAIN_DATA)
-    #         losses = {}
-    #         batches = minibatch(TRAIN_DATA, size=compounding(4., 32., 1.001))
-    #         for batch in batches:
-    #             texts, annotations = zip(*batch)
-    #             nlp.update(texts, annotations, sgd=optimizer, drop=0.35,
-    #                        losses=losses)
-    #         print('Losses', losses)
+    with nlp.disable_pipes(*other_pipes):  # only train NER
+        for itn in range(30):
+            random.shuffle(TRAIN_DATA)
+            losses = {}
+            batches = minibatch(TRAIN_DATA, size=compounding(4., 32., 1.001))
+            for batch in batches:
+                texts, annotations = zip(*batch)
+                nlp.update(texts, annotations, sgd=optimizer, drop=0.35,
+                           losses=losses)
+            print('Losses', losses)
     nlp.max_length = 200000000
 
-    # output_dir = "int_reference"
-    # if output_dir is not None:
-    #     output_dir = Path(output_dir)
-    #     if not output_dir.exists():
-    #         output_dir.mkdir()
-    #     nlp.meta['name'] = "CustomNER"  # rename model
-    #     nlp.to_disk(output_dir)
-    #     print("Saved model to", output_dir)
+    output_dir = "int_reference"
+    if output_dir is not None:
+        output_dir = Path(output_dir)
+        if not output_dir.exists():
+            output_dir.mkdir()
+        nlp.meta['name'] = "intref"  # rename model
+        nlp.to_disk(output_dir)
+        print("Saved model to", output_dir)
 
     with open('sample/a310bb91.p.html.293e9e18.txt', 'r', encoding='utf-8') as file:
         all_of_it = file.read()
+        print(all_of_it)
         doc = nlp(all_of_it)
         displacy.serve(doc, style="ent")
 

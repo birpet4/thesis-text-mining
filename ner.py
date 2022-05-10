@@ -40,7 +40,7 @@ TRAIN_DATA = [
     ),
     (
         """If investment by “banking entities” in the Notes of any Class is prohibited or restricted by the Volcker Rule, this could impair the marketability and liquidity of such Notes.""",
-        {"entities": [(0,109, "Cause")]}
+        {"entities": [(0, 109, "Cause")]}
     ),
     (
         """Information as to placement within the United States The Notes of each Class offered pursuant to an exemption from registration requirements under Rule 144A under the Securities Act (“Rule 144A”) (the “Rule 144A Notes”) will be sold only to “qualified institutional buyers” (as defined in Rule 144A) (“QIBs”) that are also “qualified purchasers” for purposes of Section 3(c)(7) of the Investment Company Act (“QPs”). Rule 144A Notes of each Class (other than, in certain circumstances, the Class E Notes, the Class F Notes, the Class Z Notes and the Subordinated Notes) will each be represented on issue by beneficial interests in one or more permanent global certificates of such Class (each, a “Rule 144A Global Certificate” and together, the “Rule 144A Global Certificates”) or may in some cases be represented by definitive certificates of such Class (each a “Rule 144A Definitive Certificate” and, together, the “Rule 144A Definitive Certificates”), in each case in fully registered form, without interest coupons or principal receipts, which will be deposited on or about the Issue Date with, and registered in the name of, a nominee of a common depositary for Euroclear Bank S.A./N.V., as operator of the Euroclear System (“Euroclear”) and Clearstream Banking, société anonyme (“Clearstream, Luxembourg”), or, in the case of Rule 144A Definitive Certificates, the registered holder thereof. The Notes of each Class (other than in certain circumstances, the Class E Notes, the Class F Notes, the Class Z Notes and the Subordinated Notes) sold to non-“U.S. Persons” in an “offshore transaction”, as such terms are defined in, and in accordance with Regulation S (“Regulation S”) under the Securities Act (the “Regulation S Notes”) will each be represented on issue by beneficial interests in one or more permanent global certificates of such Class (each, a “Regulation S Global Certificate” and together, the “Regulation S Global Certificates”) or may in some cases be represented by definitive certificates of such Class (each a “Regulation S Definitive Certificate” and, together, the “Regulation S Definitive Certificates”), in each case in fully registered form, without interest coupons or principal receipts, which will be deposited on or about the Issue Date with, and registered in the name of, a nominee of a common depositary for Euroclear and Clearstream, Luxembourg or, in the case of Regulation S Definitive Certificates, the registered holder thereof. Neither U.S. Persons nor U.S. residents (as determined for the purposes of the Investment Company Act) (“U.S. Residents”) may hold an interest in a Regulation S Global Certificate or a Regulation S Definitive Certificate.""",
@@ -100,7 +100,7 @@ TRAIN_DATA = [
     ),
     (
         """The Collateral Manager does not have any obligation to consider or take any Retention Cure Action and, if the Collateral Manager determines not to take any Retention Cure Action, it may no longer be eligible to act as the Retention Holder pursuant to the EU Retention and Transparency Requirements (and for the avoidance of doubt, even if a Retention Cure Action is taken, it is not certain whether such action would result in compliance with the EU Retention and Transparency Requirements).""",
-        {"entities": [(103,177, "Cause")]}
+        {"entities": [(103, 177, "Cause")]}
     ),
     (
         """If the Collateral Administrator does not agree on the terms of reporting or, in the reasonable opinion of the Issuer (acting on the advice of the Collateral Manager), the Collateral Administrator is or will be unable or unwilling to provide such reporting, the Issuer (with the consent of the Collateral Manager) shall be entitled to appoint another entity to make the relevant information available for the purposes of Article 7 (Transparency requirements for originators, sponsors and SSPEs) of the Securitisation Regulation.""",
@@ -116,96 +116,172 @@ TRAIN_DATA = [
     ),
     (
         """If the Issuer is considered to be a member of a “group” (as defined in EMIR) (which may, for example, potentially be the case if the Issuer is consolidated by a Noteholder as a result of such Noteholder’s holding of a significant proportion of the Subordinated Notes) and if the aggregate notional value of OTC derivative contracts entered into by the Issuer and any non- financial entities within such group exceeds the applicable thresholds (excluding eligible hedging transactions), the Issuer would be subject to the clearing obligation, or if the relevant contract is not a type required to be cleared, to the risk mitigation obligations, including the margin requirement.""",
-        {"entities": [(0,266, "Cause"), (272, 484, "Cause")]}
+        {"entities": [(0, 266, "Cause"), (272, 484, "Cause")]}
     ),
-        (
+    (
         """If the Issuer exceeds the applicable thresholds and its swaps become subject to mandatory clearing, this may also lead to a termination of the Hedge Agreements.""",
-        {"entities": [(0,98, "Cause")]}
+        {"entities": [(0, 98, "Cause")]}
     ),
-        (
+    (
         """If the Issuer becomes subject to the clearing obligation or to the margin requirement, it is unlikely that it would be able to comply with such requirements, which would adversely affect the Issuer’s ability to enter into Hedge Transactions or significantly increase the cost thereof, negatively affecting the Issuer’s ability to acquire Non-Euro Obligations and/or hedge its interest rate risk.""",
         {"entities": [(0, 85, "Cause")]}
     ),
-        (
+    (
         """If the Issuer were to be considered to be an AIF within the meaning in AIFMD, it would need to be managed by a manager authorised under AIFMD (an “AIFM”).""",
         {"entities": [(0, 76, "Cause")]}
     ),
-        (
+    (
         """If considered to be an AIF managed by an AIFM, the Issuer would also be classified as an FC under EMIR and may be required to comply with clearing obligations and/or other risk mitigation techniques (including obligations to post margin to any central clearing counterparty or market counterparty) with respect to Hedge Transactions (under the EMIR Refit, all AIFs will be FCs whether or not managed by an authorised AIFM).""",
         {"entities": [(0, 45, "Cause")]}
     ),
-        (
+    (
         """If the SSPE Exemption does not apply and the Issuer is considered to be an AIF, the Collateral Manager may not be able to continue to manage the Issuer’s assets, or its ability to do so may be impaired.""",
         {"entities": [(0, 78, "Cause")]}
     ),
-        (
+    (
         """If such amendments are made to Regulation AB in the future, they may place additional requirements and expenses on the Issuer in the event of the issuance and sale of any additional notes, which expenses may reduce the amounts available for distribution to the Noteholders.""",
         {"entities": [(0, 58, "Cause")]}
     ),
-        (
+    (
         """If the Collateral Manager elects to file for a registration exemption under CFTC Rule 4.13(a)(3), then unlike a CFTC-registered CPO, the Collateral Manager would not be required to deliver a CFTC-mandated disclosure document or a certified annual report to investors, or otherwise comply with the requirements applicable to CFTC-registered CPOs and CTAs.""",
         {"entities": [(0, 131, "Cause")]}
     ),
-        (
+    (
         """Further, if the Collateral Manager determines that additional Hedge Transactions should be entered into by the Issuer in excess of the trading limitations set forth in any applicable exemption from registration as a CPO and/or a CTA, the Collateral Manager may elect to withdraw its exemption from registration and instead register with the CFTC as the Issuer’s CPO and/or CTA. The costs of obtaining and maintaining these registrations and the related compliance obligations may be paid by the Issuer as Administrative Expenses.""",
         {"entities": [(9, 232, "Cause")]}
     ),
-        (
+    (
         """If the Issuer is deemed to be a “covered fund” the provisions of the Volcker Rule and its related regulatory provisions, will severely limit the ability of “banking entities” to hold an “ownership interest” in the Issuer or enter into certain credit related financial transactions with the Issuer.""",
         {"entities": [(0, 119, "Cause")]}
     ),
-        (
+    (
         """If investment by “banking entities” in the Refinancing Notes of any Class is prohibited or restricted by the Volcker Rule, this could impair the marketability and liquidity of such Refinancing Notes.""",
         {"entities": [(0, 121, "Cause")]}
     ),
-        (
+    (
         """Moreover, if the Priorities of Payment are the subject of litigation in any jurisdiction outside England and Wales, in particular in the United States of America, and such litigation results in a conflicting judgment in respect of the binding nature of the Priorities of Payment, it is possible that termination payments due to the Hedge Counterparties would not be subordinated as envisaged by the Priority of Payments and as a result, the Issuer’s ability to repay the Noteholders in full may be adversely affected.""",
         {"entities": [(10, 278, "Cause")]}
     ),
-        (
+    (
         """It is possible that the LIBOR administrator, ICE Benchmark Administration Limited, and the panel banks could continue to produce LIBOR on the current basis after 2021, if they are willing and able to do so. However, the survival of LIBOR in its current form, or at all, is not guaranteed after 2021.""",
-        {"entities": [ (168, 298, "Cause")]}
+        {"entities": [(168, 298, "Cause")]}
     ),
-        (
+    (
         """If LIBOR does not survive in its current form or at all, this could adversely affect the value of, and amounts payable under, any Collateral Obligations which pay interest calculated with reference to LIBOR and therefore reduce amounts which may be available to the Issuer to pay Noteholders.""",
         {"entities": [(0, 55, "Cause")]}
     ),
-        (
+    (
         """Benchmarks such as EURIBOR or LIBOR may be discontinued if they do not comply with the requirements of the Benchmarks Regulation, or if the administrator of the benchmark either fails to apply for authorisation or is refused authorisation by its home regulator.""",
-        {"entities": [ ( 56, 260, "Cause")]}
+        {"entities": [(56, 260, "Cause")]}
     ),
-        (
+    (
         """If a relevant institution enters into an arrangement with the Issuer and is deemed likely to fail in the circumstances identified in the BRRD, the relevant Resolution Authority may employ such tools and powers in order to intervene in the relevant institution’s failure (including in the case of derivatives transactions, powers to close-out such transactions or suspend any rights to close-out such transactions).""",
         {"entities": [(0, 141, "Cause")]}
     ),
-        (
+    (
         """If the relevant Resolution Authority decides to “bail-in” the liabilities of a relevant institution, then subject to certain exceptions set out in the BRRD, the liabilities of such relevant institution could, among other things, be reduced, converted or extinguished in full.""",
         {"entities": [(0, 100, "Cause")]}
     ),
-        (
+    (
         """If a Member State outside the Euro zone (such as the UK) has chosen not to participate in the bank single supervisory mechanism, relevant institutions established in such Member State will not be subject to the SRM Regulation, but to the application of the BRRD by the Resolution Authorities.""",
         {"entities": [(0, 127, "Cause")]}
     ),
-        (
+    (
         """If a Covered Entity enters into a contract with the Issuer that is subject to the QFC Stay Rules, the Covered Entity will be responsible for ensuring that such QFC complies with the QFC Stay Rules. As a result of the application of such rules, the Issuer may be required to accept limitations in its insolvency-related default rights against the Covered Entity.""",
         {"entities": [(0, 96, "Cause")]}
     ),
-        (
+    (
         """If the Issuer’s COMI is not located in The Netherlands and is held to be in a different jurisdiction within the European Union, Dutch insolvency proceedings would not be applicable to the Issuer.""",
         {"entities": [(0, 126, "Cause")]}
     ),
-        (
+    (
         """If a Refinancing is obtained meeting the requirements of the Trust Deed, the Issuer may amend the Trust Deed and the Trustee shall concur with such amendments to the Trust Deed and no further consent for such amendments shall be required from the holders of the Subordinated Notes.""",
         {"entities": [(0, 71, "Cause")]}
     ),
-        (
+    (
         """The Collateral Manager or the Retention Holder may also cause the Issuer to redeem the Rated Notes in whole from Sale Proceeds on any Business Day falling on or after the expiry of the Non-Call Period, if the Collateral Principal Amount is less than 15 per cent. of the Target Par Amount.""",
         {"entities": [(201, 287, "Cause")]}
     ),
-        (
+    (
         """Each Noteholder will agree, and each beneficial owner of Notes will be deemed to agree, pursuant to the Trust Deed, that it will be subject to non-petition covenants. If such provision failed to be enforceable under applicable bankruptcy laws, and a winding-up (or similar) petition was presented in respect of the Issuer, then the presentation of such a petition could (subject to certain conditions) result in one or more payments on the Notes made during the period prior to such presentation being deemed to be preferential transfers subject to avoidance by the bankruptcy trustee or similar official exercising authority with respect to the Issuer’s bankruptcy estate.""",
         {"entities": [(167, 321, "Cause")]}
     ),
+    (
+        """If the holders of the Controlling Class do not have an interest in the outcome of the conflict, the Trustee shall give priority to the interests of the most senior Class of Notes Outstanding.""",
+        {'entities':  [(0, 94, "Cause")]}
+    ),
+    (
+        """If the relevant EURIBOR screen rate does not appear, or the relevant page is unavailable, in the manner described in Condition 6(e)(i) (Floating Rate of Interest) there can be no guarantee that the Collateral Manager will be able to select four Reference Banks to provide quotations, in order to determine any Rate of Interest in respect of the Notes.""",
+        {"entities": [(0, 88, "Cause")]}
+    ),
+    (
+        """If a EURIBOR screen rate does not appear, or the relevant page is unavailable, and the Collateral Manager is unable to select Reference Banks to provide quotations in the manner described in Condition 6(e)(i) (Floating Rate of Interest), the relevant Rate of Interest in respect of such Payment Date shall be determined, pursuant to Condition 6(e)(i) (Floating Rate of Interest), as the Rate of Interest in effect as at the immediately preceding Accrual Period that was determined by reference to a EURIBOR screen rate or through quotations provided by four Reference Banks provided that, in respect of any Accrual Period during which a Frequency Switch Event occurs, the relevant Rate of Interest shall be calculated using the offered rate for six month Euro deposits using the rate available as at the previous Interest Determination Date.""",
+        {"entities": [(0, 236, "Cause")]}
+    ),
+    (
+        """If a rating initially assigned to any of the Notes is subsequently lowered for any reason, no person or entity is required to provide any additional support or credit enhancement with respect to any such Notes and the market value of such Notes is likely to be adversely affected.""",
+        {"entities": [(0, 89, "Cause")]}
+    ),
+    (
+        """If the Transaction Documents require that written confirmation from a Rating Agency be obtained before certain actions may be taken and an applicable Rating Agency is unwilling to provide the required confirmation, it may be impossible to effect such action, which could result in losses being realised by the Issuer and, indirectly, by holders of the Refinancing Notes.""",
+        {"entities": [(0, 213, "Cause")]}
+    ),
+    (
+        """If a Rating Agency announces or informs the Trustee, the Collateral Manager or the Issuer that confirmation from such Rating Agency is not required for a certain action or that its practice is to not give such confirmations for certain types of actions, the requirement for confirmation from such Rating Agency will not apply.""",
+        {"entities": [(0, 51, "Cause")]}
+    ),
+    (
+        """If the arranger does not comply with its undertakings to any Rating Agency with respect to this transaction, such Rating Agency may withdraw its ratings of the Rated Notes. In such case, the withdrawal of ratings by any Rating Agency may adversely affect the price or transferability of the Rated Notes and may adversely affect any beneficial owner that relies on ratings of securities for regulatory or other compliance purposes.""",
+        {"entities": [(0, 107, "Cause")]}
+    ),
+    (
+        """If the Issuer or any third party that provides due diligence services to the Issuer does not comply with its obligations under Rule 17g-10, the Rating Agencies may withdraw (or fail to confirm) their ratings of the Rated Notes. In such case, the price or transferability of the Notes (and any beneficial owner of the Rated Notes that relies on ratings of securities for regulatory or other compliance purposes) may be adversely affected.""",
+        {"entities": [(0, 138, "Cause")]}
+    ),
+    (
+        """If any withholding tax or deduction for tax is imposed on payments of principal or interest on the Notes (including FATCA), the holders of the Notes will not be entitled to receive grossed-up amounts to compensate for such withholding tax and no Note Event of Default shall occur as a result of any such withholding or deduction.""",
+        {"entities": [(0, 122, "Cause")]}
+    ),
+    (
+        """If a meeting of Noteholders is called to consider a Resolution, determination as to whether the requisite number of Notes has been voted in favour of such Resolution will be determined by reference to the percentage which the aggregate Principal Amount Outstanding of Notes held or represented by any person or persons who vote in favour of such Resolution represents of the aggregate Principal Amount Outstanding of all applicable Notes which are represented at such meeting and are voted and not the aggregate Principal Amount Outstanding of all such Notes held or represented by any person or persons entitled to vote at such meeting.""",
+        {"entities": [(0, 62, "Cause")]}
+    ),
+    (
+        """Similarly, investors in the other Classes of Notes should be aware that if there are no Notes in their Class that would be entitled to vote and be counted in respect of a CM Removal Resolution or CM Replacement Resolution such right shall pass to a more junior Class of Notes.""",
+        {"entities": [(72, 275, "Cause")]}
+    ),
+    (
+        """If at any time one or more investors that are affiliated hold a majority of any Class of Notes, it may be more difficult for other investors to take certain actions that require consent of any such Classes of Notes without their consent.""",
+        {"entities": [(0, 94, "Cause")]}
+    ),
+    (
+        """If a Note Event of Default occurs and is continuing, the Trustee may, at its discretion, and shall, at the request of the Controlling Class acting by way of Ordinary Resolution (subject, in each case, to the Trustee being indemnified and/or secured and/or prefunded to its satisfaction against all liabilities, proceedings, claims and demands to which it may thereby become liable and all costs, charges and expenses which may be incurred by it in connection therewith), give notice to the Issuer and the Collateral Manager that all the Notes are immediately due and repayable, provided that following the occurrence of a Note Event of Default described in Condition 10(a)(vi) (Insolvency Proceedings) such notice shall be deemed to have been given and all the Notes shall automatically become immediately due and payable.""",
+        {"entities": [(0, 51, "Cause")]}
+    ),
+    (
+        """At any time after the Notes become due and repayable and the security under the Trust Deed becomes enforceable, the Trustee may, at its discretion (subject to being indemnified and/or secured and/or prefunded to its satisfaction), and shall, if so directed by the Controlling Class acting by Extraordinary Resolution, take Enforcement Action (as defined in the Conditions) in respect of the security over the Collateral provided that no such Enforcement Action may be taken by the Trustee unless: (A) it determines that the anticipated proceeds realised from such Enforcement Action (after deducting and allowing for any expenses properly incurred in connection therewith) would be sufficient to discharge in full all amounts due and payable in respect of all Classes of Notes other than the Subordinated Notes (including, without limitation, Deferred Interest on the Class C Notes, the Class D Notes, the Class E Notes and the Class F Notes) and all amounts payable in priority to the Subordinated Notes pursuant to the Post-Acceleration Priority of Payments or (B) otherwise, in the case of a Note Event of Default specified in sub-paragraphs (i), (ii), (iv) or (vi) of Condition 10 (Events of Default) the Controlling Class acting by way of Extraordinary Resolution (and no other Class of Notes) may direct the Trustee to take Enforcement Action without regard to any other Note Event of Default which has occurred prior to, contemporaneously or subsequent to such Note Event of Default.""",
+        {"entities": [(242, 316, "Cause")]}
+    ),
+    (
+        """Under a regulation of the U.S. Department of Labor, as modified by Section 3(42) of ERISA, if certain employee benefit plans or other retirement arrangements subject to the fiduciary responsibility provisions of Title I of the U.S. Employee Retirement Income Security Act of 1974, as amended, (“ERISA”) or Section 4975 of the U.S. Internal Revenue Code of 1986, as amended, (the “Code”) or entities whose underlying assets are treated as assets of such plans or arrangements (collectively, “Plans”) invest in a Class of Notes that is treated as equity under the regulation (which could include the Class E Notes, the Class F Notes and the Subordinated Notes), the assets of the Issuer could be considered to be assets of such Plans. In addition, certain of the transactions contemplated under such Notes could be considered “prohibited transactions” under Section 406 of ERISA or Section 4975 of the Code. See the section entitled “Certain ERISA Considerations” below.""",
+        {"entities": [(91, 658, "Cause")]}
+    ),
+    (
+        """U.S. person as defined under Regulation S under the Securities Act (a “U.S. Person”) and is not both a QIB and a QP at the time it acquires an interest in a Rule 144A Note (any such person, a “Non-Permitted Noteholder”), the Issuer shall, promptly after determination that such person is a Non-Permitted Noteholder by the Issuer, send notice to such Non-Permitted Noteholder demanding that such holder transfer its interest outside the United States to a non-U.S. Person or within the United States to a U.S. Person that is a QIB/QP within 30 days of the date of such notice. If such holder fails to effect the transfer required within such 30-day period, (a) the Issuer or the Collateral Manager on its behalf and at the expense of the Issuer shall cause such Rule 144A Notes to be transferred in a sale to a person or entity that certifies to the Issuer, in connection with such transfer, that such person or entity either is not a U.S. Person or is a QIB/QP and (b) pending such transfer, no further payments will be made in respect of such Rule 144A Notes.""",
+        {"entities": [(576, 654, "Cause")]}
+    ),
+    (
+        """When the Issuer holds a Participation in a loan it generally will not have the right to participate directly in any vote to waive enforcement of any covenants breached by a borrower.""",
+        {"entities": [(0, 46, "Cause")]}
+    ),
+    (
+        """When CVC Credit Partners is required to take action with respect to a security or loan investment held by a client, it is CVC Credit Partners’ policy to act in the best interest of the holder of the investment with respect to which action is being taken, even though such actions may be to the detriment of others invested in the company’s capital structure.""",
+        {"entities": [(0, 114, "Cause")]}
+    ),
+    (
+        """“Aggregate Principal Balance” means the aggregate of the Principal Balances of all the Collateral Debt Obligations and when used with respect to some portion of the Collateral Debt Obligations, means the aggregate of such portion of the Principal Balances of such Collateral Debt Obligations, in each case, as at the date of determination.""",
+        {"entities": [(119, 192, "Cause")]}
+    )
 ]
 # TRAIN_DATA = [
 # #     # (
@@ -468,6 +544,7 @@ TRAIN_DATA = [
 #         {"entities": [(167, 321, "Cause"), (322, 672, "Effect")]}
 #     ),
 # ]
+
 
 def train_custom_ner():
     model = None

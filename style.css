@@ -1,0 +1,26 @@
+td {
+  width: 50%;
+}
+
+table {
+  border-spacing: 10px;
+  border-collapse: separate;
+}
+
+.condition {
+  background-color: #d7f2ff;
+  border: 1px solid #41c0ff;
+}
+
+.effect {
+  background-color: #fffdb3;
+  border: 1px solid #41c0ff;
+}
+
+tr {
+  margin: 50px;
+}
+
+.arrow {
+  width: 2%;
+}

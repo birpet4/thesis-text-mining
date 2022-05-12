@@ -547,7 +547,7 @@ TRAIN_DATA = [
 
 
 def train_custom_ner():
-    model = None
+    model = "idementsdamodelleket/ner"
     if model is not None:
         nlp = spacy.load(model)  # load existing spacy model
         print("Loaded model '%s'" % model)
@@ -570,16 +570,16 @@ def train_custom_ner():
 
     # Get names of other pipes to disable them during training to train only NER
     other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
-    with nlp.disable_pipes(*other_pipes):  # only train NER
-        for itn in range(1000):
-            random.shuffle(TRAIN_DATA)
-            losses = {}
-            batches = minibatch(TRAIN_DATA, size=compounding(4., 32., 1.001))
-            for batch in batches:
-                texts, annotations = zip(*batch)
-                nlp.update(texts, annotations, sgd=optimizer, drop=0.35,
-                           losses=losses)
-            print('Losses', losses)
+    # with nlp.disable_pipes(*other_pipes):  # only train NER
+    #     for itn in range(1000):
+    #         random.shuffle(TRAIN_DATA)
+    #         losses = {}
+    #         batches = minibatch(TRAIN_DATA, size=compounding(4., 32., 1.001))
+    #         for batch in batches:
+    #             texts, annotations = zip(*batch)
+    #             nlp.update(texts, annotations, sgd=optimizer, drop=0.35,
+    #                        losses=losses)
+    #         print('Losses', losses)
     nlp.max_length = 1787772
 
     # Test the trained model
@@ -590,16 +590,16 @@ def train_custom_ner():
     # for ent in doc.ents:
     #     print("lab:", ent.label_, ent.text)
 
-    output_dir = "idementsdamodelleket/ner"
-    if output_dir is not None:
-        output_dir = Path(output_dir)
-        if not output_dir.exists():
-            output_dir.mkdir()
-        nlp.meta['name'] = "logic_ner_model_92"  # rename model
-        nlp.to_disk(output_dir)
-        print("Saved model to", output_dir)
+    # output_dir = "idementsdamodelleket/ner"
+    # if output_dir is not None:
+    #     output_dir = Path(output_dir)
+    #     if not output_dir.exists():
+    #         output_dir.mkdir()
+    #     nlp.meta['name'] = "logic_ner_model_92"  # rename model
+    #     nlp.to_disk(output_dir)
+    #     print("Saved model to", output_dir)
 
-    with open('test/test_ner2.txt', 'r', encoding='utf-8') as file:
+    with open('sample/eurlex_01.txt', 'r', encoding='utf-8') as file:
         all_of_it = file.read()
         doc = nlp(all_of_it)
         displacy.serve(doc, style="ent")

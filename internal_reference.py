@@ -112,11 +112,12 @@ TRAIN_DATA = [
     ),
     (
         """The Notes have not been, and will not be, registered under the United States Securities Act of 1933, as amended (the “Securities Act”) and will be offered only: (a) outside the United States to non-U.S. Persons (as defined in Regulation S under the Securities Act (“Regulation S”)); and (b) within the United States to persons and outside the United States to U.S. Persons (as such term is defined in Regulation S (“U.S. Persons”)), in each case, who are both qualified institutional buyers (as defined in Rule 144A (“Rule 144A”) under the Securities Act) in reliance on Rule 144A and qualified purchasers for the purposes of Section 3(c)(7) of the United States Investment Company Act of 1940, as amended (the “Investment Company Act”). Neither the Issuer nor the Collateral Manager will be registered under the Investment Company Act. Interests in the Notes will be subject to certain restrictions on transfer, and each purchaser of Notes offered hereby in making its purchase will be deemed to have made certain acknowledgements, representations and agreements. See “Plan of Distribution” and “Transfer Restrictions”.""",
-        {"entities": [(1070, 1089, "Internal-Reference"), (1097, 1117, "Internal-Reference")]}
+        {"entities": [(1070, 1089, "Internal-Reference"),
+                      (1097, 1117, "Internal-Reference")]}
     ),
     (
         """The Notes will be subject to Optional Redemption, Mandatory Redemption and Special Redemption, each as described herein. See Condition 7 (Redemption and Purchase).""",
-        {"entities": [(125,161,"Internal-Reference")]}
+        {"entities": [(125, 161, "Internal-Reference")]}
     ),
     (
         """SEE THE SECTION ENTITLED “RISK FACTORS” HEREIN FOR A DISCUSSION OF CERTAIN FACTORS TO BE CONSIDERED IN CONNECTION WITH AN INVESTMENT IN THE NOTES.""",
@@ -128,7 +129,8 @@ TRAIN_DATA = [
     ),
     (
         """IN EACH CASE, WHO ARE BOTH QUALIFIED INSTITUTIONAL BUYERS (AS DEFINED IN RULE 144A UNDER THE SECURITIES ACT) IN RELIANCE ON RULE 144A UNDER THE SECURITIES ACT AND QUALIFIED PURCHASERS FOR THE PURPOSES OF SECTION 3(C)(7) OF THE UNITED STATES INVESTMENT COMPANY ACT OF 1940, AS AMENDED (THE “INVESTMENT COMPANY ACT”). THE ISSUER HAS NOT BEEN AND WILL NOT BE REGISTERED UNDER THE INVESTMENT COMPANY ACT. INTERESTS IN THE NOTES WILL BE SUBJECT TO CERTAIN RESTRICTIONS ON TRANSFER, AND EACH PURCHASER OF NOTES OFFERED HEREBY IN MAKING ITS PURCHASE WILL BE REQUIRED TO OR DEEMED TO HAVE MADE CERTAIN ACKNOWLEDGEMENTS, REPRESENTATIONS AND AGREEMENTS. SEE “PLAN OF DISTRIBUTION” AND “TRANSFER RESTRICTIONS”.""",
-        {"entities": [(649, 668, "Internal-Reference"),(676, 696, "Internal-Reference")]}
+        {"entities": [(649, 668, "Internal-Reference"),
+                      (676, 696, "Internal-Reference")]}
     ),
     (
         """requirements contained in subparagraphs (a) and (e) of Article 7(1) of the Securitisation Regulation through the provision of the Monthly Reports and the Payment Date Reports (see "Description of the Reports") and (B) the Investment Manager shall not be required to provide any reports, data or other information (other than such information and data necessary for completion of the Monthly Reports and the Payment Date Reports) in connection with the reporting requirements contained in subparagraphs (a) and (e) of Article 7(1) of the Securitisation Regulation to the Issuer pursuant to the Investment Management and Collateral Administration Agreement prior to the entry into force of such final disclosure templates. Once the Transparency RTS (as defined below) apply, the Loan Reports and Investor Reports (each as defined below) will be prepared in accordance with the requirements of the Transparency RTS. The Issuer, with the consent of the Investment Manager, will propose in writing to the Collateral Administrator the form, content, method of distribution and timing of such reports and other information. The Collateral Administrator shall consult with the Issuer and the Investment Manager and, if it agrees to assist the Issuer in providing such reporting on such proposed terms, shall confirm such agreement in writing to the Issuer and the Investment Manager and shall make such information (as provided to it by the Issuer (or the Investment Manager on behalf of the Issuer)) available via a website (or procure that such information is made available) currently located at https://pivot.usbank.com (or such other website as may be notified in writing by the Collateral Administrator to the Issuer, the Trustee, the Investment Manager, the Arranger, the Initial Purchaser, the Registrar, each Hedge Counterparty, the Rating Agencies, Bloomberg L.P., Intex Solutions Inc. and the Noteholders in accordance with Condition 16 (Notices)) which shall be accessible to any person (x) who certifies to the Collateral Administrator (such certification to be in the form set out in the Investment Management and Collateral Administration Agreement, which may be given electronically and upon which the Collateral Administrator shall be entitled to rely absolutely and without enquiry or liability) that it is: (i) the Issuer, (ii) the Trustee, (iii) the Investment Manager, (iv) the Arranger, (v) the Initial Purchaser, (vi) a Hedge Counterparty, (vii) a Rating Agency; (viii) Bloomberg L.P., (ix) Intex Solutions Inc., (x) a holder of a beneficial interest in any Note,""",
@@ -181,16 +183,16 @@ def train_custom_ner():
 
     # Get names of other pipes to disable them during training to train only NER
     other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
-    with nlp.disable_pipes(*other_pipes):  # only train NER
-        for itn in range(30):
-            random.shuffle(TRAIN_DATA)
-            losses = {}
-            batches = minibatch(TRAIN_DATA, size=compounding(4., 32., 1.001))
-            for batch in batches:
-                texts, annotations = zip(*batch)
-                nlp.update(texts, annotations, sgd=optimizer, drop=0.35,
-                           losses=losses)
-            print('Losses', losses)
+    # with nlp.disable_pipes(*other_pipes):  # only train NER
+    #     for itn in range(30):
+    #         random.shuffle(TRAIN_DATA)
+    #         losses = {}
+    #         batches = minibatch(TRAIN_DATA, size=compounding(4., 32., 1.001))
+    #         for batch in batches:
+    #             texts, annotations = zip(*batch)
+    #             nlp.update(texts, annotations, sgd=optimizer, drop=0.35,
+    #                        losses=losses)
+    #         print('Losses', losses)
     nlp.max_length = 200000000
 
     output_dir = "int_reference"
@@ -202,9 +204,8 @@ def train_custom_ner():
         nlp.to_disk(output_dir)
         print("Saved model to", output_dir)
 
-    with open('sample/a310bb91.p.html.293e9e18.txt', 'r', encoding='utf-8') as file:
+    with open('sample/eurlex_03.txt', 'r', encoding='utf-8') as file:
         all_of_it = file.read()
-        print(all_of_it)
         doc = nlp(all_of_it)
         displacy.serve(doc, style="ent")
 

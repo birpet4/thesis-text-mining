@@ -92,10 +92,11 @@ TRAIN_DATA = [
     ),
 ]
 
+
 def visualize_result(nlp):
     print("visualize")
     ents = []
-    with open('sample/a310bb91.p.html.293e9e18_ner.txt', 'r', encoding='utf-8') as file:
+    with open('sample/eurlex_02.txt', 'r', encoding='utf-8') as file:
         lines = file.readlines()
         with open('test/act-regex.txt', 'w+', encoding='utf-8') as f:
             wo = " ".join(lines)
@@ -106,6 +107,7 @@ def visualize_result(nlp):
                 f.write('\n')
 
             displacy.serve(doc, style="ent")
+
 
 def train_custom_ner():
     is_save = True
@@ -130,7 +132,7 @@ def train_custom_ner():
     else:
         optimizer = nlp.entity.create_optimizer()
 
-    visualize_result(nlp)  
+    visualize_result(nlp)
 
     # Get names of other pipes to disable them during training to train only NER
     # other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
@@ -165,10 +167,11 @@ def train_custom_ner():
     #     doc = nlp(all_of_it)
     #     displacy.serve(doc, style="ent")
 
+
 def search_trigger_words():
     nlp = spacy.load('en_core_web_sm')  # create blank Language class
     nlp.add_pipe(nlp.create_pipe('sentencizer'))
-    with open("sample/a310bb91.p.html.293e9e18.txt", 'r', encoding='utf-8') as file:
+    with open("sample/a1f57859.p.html.f18ba3b9.txt", 'r', encoding='utf-8') as file:
         Lines = file.readlines()
         print("search")
         for line in Lines:
@@ -183,6 +186,7 @@ def search_trigger_words():
             f.write(line)
             f.write('\n')
 
+
 if __name__ == "__main__":
-    search_trigger_words()
+    # search_trigger_words()
     train_custom_ner()
